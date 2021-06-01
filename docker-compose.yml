@@ -21,17 +21,17 @@ services:
       - traefik
       - rotmg-internal
 
-  db:
+  database:
     image: "mariadb:latest"
     container_name: "ri-mariadb"
     restart: unless-stopped
     volumes:
       - "./container_data/mariadb:/var/lib/mysql"
     environment:
-      - MYSQL_ROOT_PASSWORD=UddH1vYyITe6xQvfuWPzAZ8e3kL76k6p
-      - MYSQL_PASSWORD=tF0XTDcPzAIS8hOECpUX2sEzSoLvxkQ9
-      - MYSQL_DATABASE=rotmg-internal
-      - MYSQL_USER=ri
+      - MYSQL_ROOT_PASSWORD=niWEGFCnWhd9pkbJT2ZM7T4jpmqtZ6qR
+      - MYSQL_DATABASE=asM96yAmi5QKBELtmqfysC73C7YJXF9T
+      - MYSQL_USER=erRiMgi4wVeZ5TT7m8HVWjiqZhofKmeU
+      - MYSQL_PASSWORD=ohLPVrwJvXtcatDWjLE8QwBiLA9zfDLH
     networks:
       - rotmg-internal
 
@@ -41,7 +41,7 @@ services:
     restart: unless-stopped
     environment:
       - PMA_HOST=database
-      - MYSQL_ROOT_PASSWORD=XYvxPLn5zN9KbdtOX9f2c5GX5RBEAixL
+      - MYSQL_ROOT_PASSWORD=niWEGFCnWhd9pkbJT2ZM7T4jpmqtZ6qR
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"

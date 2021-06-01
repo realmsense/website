@@ -1,16 +1,28 @@
 
 import { Injectable } from "@nestjs/common";
-import { Build } from "./interfaces/build.interface";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Build } from "./interfaces/build.entity";
 
 @Injectable()
 export class BuildsService {
-    private readonly builds: Build[] = [];
+
+    constructor(
+        @InjectRepository(Build)
+        private buildsRepository: Repository<Build>,
+    ) {}
 
     create(build: Build) {
-        this.builds.push(build);
+        this.buildsRepository.insert(build);
     }
 
-    findAll(): Build[] {
-        return this.builds;
+    async disable(id: string): Promise<Build> {
+        const buildEntity = await this.buildsRepository.findOneOrFail(id);
+        buildEntity.active = false;
+        return this.buildsRepository.save(buildEntity);
+    }
+
+    findAll(): Promise<Build[]> {
+        return this.buildsRepository.find();
     }
 }
