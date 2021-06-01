@@ -1,0 +1,10 @@
+# api
+container_data/api/node_modules
+container_data/api/dist
+
+# db
+container_data/mariadb/
+
+# node_modules
+# dist
+# mariadb/

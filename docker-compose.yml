@@ -1,0 +1,60 @@
+version: "3"
+
+services:
+  
+  api:
+    build:
+      context: ./container_data/api
+      dockerfile: Dockerfile
+    container_name: "ri-api"
+    restart: unless-stopped
+    volumes:
+      - "./container_data/api:/usr/src/app"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.ri-api.rule=Host(`api.ri.extacy.cc`)"
+      - "traefik.http.routers.ri-api.entrypoints=websecure"
+      - "traefik.http.routers.ri-api.tls.certresolver=tlschallenge"
+      - "traefik.http.services.ri-api.loadbalancer.server.port=3000"
+    networks:
+      - traefik
+      - rotmg-internal
+
+  db:
+    image: "mariadb:latest"
+    container_name: "ri-mariadb"
+    restart: unless-stopped
+    volumes:
+      - "./container_data/mariadb:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=UddH1vYyITe6xQvfuWPzAZ8e3kL76k6p
+      - MYSQL_PASSWORD=tF0XTDcPzAIS8hOECpUX2sEzSoLvxkQ9
+      - MYSQL_DATABASE=rotmg-internal
+      - MYSQL_USER=ri
+    networks:
+      - rotmg-internal
+
+  phpmyadmin:
+    image: "phpmyadmin/phpmyadmin:latest"
+    container_name: "ri-phpmyadmin"
+    restart: unless-stopped
+    environment:
+      - PMA_HOST=database
+      - MYSQL_ROOT_PASSWORD=XYvxPLn5zN9KbdtOX9f2c5GX5RBEAixL
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.ri-phpmyadmin.rule=Host(`phpmyadmin.ri.extacy.cc`)"
+      - "traefik.http.routers.ri-phpmyadmin.entrypoints=websecure"
+      - "traefik.http.routers.ri-phpmyadmin.tls.certresolver=tlschallenge"
+    networks:
+      - traefik
+      - rotmg-internal
+  
+
+networks:
+  traefik:
+    external: true
+  rotmg-internal:
+    external: false
