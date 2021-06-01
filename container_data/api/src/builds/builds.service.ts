@@ -1,6 +1,7 @@
 
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { validate } from "class-validator";
 import { Repository } from "typeorm";
 import { Build } from "./interfaces/build.entity";
 
@@ -10,9 +11,9 @@ export class BuildsService {
     constructor(
         @InjectRepository(Build)
         private buildsRepository: Repository<Build>,
-    ) {}
+    ) { }
 
-    create(build: Build) {
+    async create(build: Build) {
         this.buildsRepository.insert(build);
     }
 

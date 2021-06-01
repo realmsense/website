@@ -19,10 +19,9 @@ export class BuildsController {
     @Post("create")
     @UseGuards(AuthKeyGuard(PRIVATE_KEY))
     async create(@Body() build: Build) {
-        console.log(build);
         this.buildsService.create(build);
     }
-    
+
     @Post("disable")
     @UseGuards(AuthKeyGuard(PRIVATE_KEY))
     async disable(@Body() id: string) {

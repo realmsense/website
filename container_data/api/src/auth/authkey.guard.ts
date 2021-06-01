@@ -6,7 +6,8 @@ export const AuthKeyGuard = (key: string) => {
     class AuthKeyGuard implements CanActivate {
         canActivate(context: ExecutionContext): boolean {
             const request = context.switchToHttp().getRequest();
-            const params = request.body;
+            // const params = request.body;
+            const params = request.query;
 
             if (params.authkey == key)
                 return true
