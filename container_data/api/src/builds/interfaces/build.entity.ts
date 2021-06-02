@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { IsNotEmpty } from "class-validator";
+import { IsBase64, IsInt, isNotEmpty, IsNotEmpty, IsNumber, IsNumberString } from "class-validator";
 
 @Entity()
 export class Build {
@@ -14,6 +14,14 @@ export class Build {
     @IsNotEmpty()
     url: string;
 
+    @Column()
+    @IsInt()
+    file_size: number;
+
+    @Column()
+    @IsNotEmpty()
+    file_path: string;
+
     @Column({ default: true })
-    active: boolean;
+    enabled: boolean;
 }

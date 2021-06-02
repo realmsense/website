@@ -1,6 +1,7 @@
 # api
 container_data/api/node_modules
 container_data/api/dist
+container_data/api/build_uploads
 
 # db
 container_data/mariadb/
