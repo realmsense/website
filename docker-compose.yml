@@ -21,6 +21,25 @@ services:
       - traefik
       - rotmg-internal
 
+  admin:
+    build:
+      context: ./container_data/admin
+      dockerfile: Dockerfile
+    container_name: "ri-admin"
+    restart: unless-stopped
+    volumes:
+      - "./container_data/admin:/usr/src/app"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.ri-admin.rule=Host(`admin.ri.extacy.cc`)"
+      - "traefik.http.routers.ri-admin.entrypoints=websecure"
+      - "traefik.http.routers.ri-admin.tls.certresolver=tlschallenge"
+      - "traefik.http.services.ri-admin.loadbalancer.server.port=4200"
+    networks:
+      - traefik
+      - rotmg-internal
+
   database:
     image: "mariadb:latest"
     container_name: "ri-mariadb"
