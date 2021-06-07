@@ -2,21 +2,17 @@
 import { Body, Controller, Get, Header, HttpCode, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put, Query, Res, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
-import { AuthKeyGuard } from "src/auth/authkey.guard";
 import { BuildsService } from "./builds.service";
-import { Build } from "./interfaces/build.entity";
+import { Build } from "./models/build.entity";
 import { Response } from "express";
+import { AuthKeyGuard } from "src/auth/guards/authkey.guard";
 
 const PRIVATE_KEY = "Wmjg4Yg4vzMLGGK9ahrMY3BFayRmEwRDLxD5i9CdLTs4VyKKSrEZ4G7Rk5GQCFyu";
 
 @Controller("builds")
 export class BuildsController {
 
-    private buildsService: BuildsService;
-
-    constructor(buildsService: BuildsService) {
-        this.buildsService = buildsService;
-    }
+    constructor(private buildsService: BuildsService) { }
 
     @Put("upload")
     @UseGuards(AuthKeyGuard(PRIVATE_KEY))
