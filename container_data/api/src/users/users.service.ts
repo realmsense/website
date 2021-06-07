@@ -8,10 +8,14 @@ export class UsersService {
 
     constructor(
         @InjectRepository(User)
-        private buildsRepository: Repository<User>,
+        private usersRepository: Repository<User>,
     ) { }
 
     async findOne(username: string): Promise<User | undefined> {
-        return this.buildsRepository.findOne({username});
+        return this.usersRepository.findOne({username});
+    }
+
+    async insert(user: User) {
+        this.usersRepository.insert(user);
     }
 }

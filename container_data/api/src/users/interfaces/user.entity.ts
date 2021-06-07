@@ -4,7 +4,7 @@ import { IsNotEmpty } from "class-validator";
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id: number;
+    id?: number;
 
     @Column()
     @IsNotEmpty()
@@ -15,5 +15,5 @@ export class User {
     password: string;
 
     @Column({ default: true })
-    enabled: boolean;
+    enabled?: boolean;
 }

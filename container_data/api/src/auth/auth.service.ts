@@ -1,3 +1,4 @@
+import * as bcrypt from "bcrypt";
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { User } from "src/users/interfaces/user.entity";
@@ -13,9 +14,7 @@ export class AuthService {
 
     async validateUser(username: string, password: string): Promise<User> {
         const user = await this.usersService.findOne(username);
-        // TODO: use bcrypt, instead of storing/checking plaintext password
-        // just hash this password, and compare with the stored one in the db.
-        if (user && user.password == password) {
+        if (user && bcrypt.compareSync(password, user.password)) {
             delete user.password; // remove password from user
             return user;
         }
@@ -25,6 +24,11 @@ export class AuthService {
     async login(user: User) {
         const payload = { username: user.username, sub: user.id };
         return { access_token: this.jwtService.sign(payload) };
+    }
+
+    async register(username: string, password: string) {
+        const hash = await bcrypt.hash(password, 10);
+        this.usersService.insert({username, password: hash});
     }
 
 }
