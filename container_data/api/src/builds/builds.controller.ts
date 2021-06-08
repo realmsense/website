@@ -5,6 +5,7 @@ import { diskStorage } from "multer";
 import { BuildsService } from "./builds.service";
 import { Build } from "./interfaces/build.entity";
 import { Response } from "express";
+import { createReadStream } from "fs";
 
 @Controller("builds")
 export class BuildsController {
@@ -12,6 +13,7 @@ export class BuildsController {
     constructor(private buildsService: BuildsService) { }
 
     @Put("upload")
+    @HttpCode(201)
     @UseInterceptors(
         FileInterceptor("file", { storage: diskStorage({ destination: "./build_uploads" }) })
     )
@@ -22,28 +24,24 @@ export class BuildsController {
         return file;
     }
 
+    @Get("download")
+    async download(@Query("id", ParseIntPipe) buildId: number, @Res() response: Response) {
+        const data = await this.buildsService.getBuildFile(buildId);
+        data.pipe(response);
+    }
+
     @Post("create")
     async create(@Body() build: Build) {
-        this.buildsService.create(build);
+        return this.buildsService.create(build);
     }
 
     @Post("disable")
-    async disable(@Query("id") id: string) {
-        this.buildsService.disable(id);
-    }
-
-    // TODO: needs user authentication
-    // TODO: need to validate input
-    @Get("download")
-    // @HttpCode(HttpStatus.OK)
-    // @Header("Content-Type", "image/png")
-    // @Header("Content-Disposition", "attachment; filename=test.png")
-    async sex(@Query("file_path") file_path: string, @Res() response: Response) {
-        return this.buildsService.download(file_path, response);
+    async disable(@Query("id", ParseIntPipe) id: number) {
+        return this.buildsService.disable(id);
     }
 
     @Get()
-    async find(@Query("id", ParseIntPipe) id: string) {
+    async find(@Query("id", ParseIntPipe) id: number) {
         return this.buildsService.find(id);
     }
 
