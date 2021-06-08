@@ -9,11 +9,7 @@ import { Response } from "express";
 @Controller("builds")
 export class BuildsController {
 
-    private buildsService: BuildsService;
-
-    constructor(buildsService: BuildsService) {
-        this.buildsService = buildsService;
-    }
+    constructor(private buildsService: BuildsService) { }
 
     @Put("upload")
     @UseInterceptors(
