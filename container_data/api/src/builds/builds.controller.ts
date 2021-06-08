@@ -2,12 +2,9 @@
 import { Body, Controller, Get, Header, HttpCode, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put, Query, Res, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
-import { AuthKeyGuard } from "src/auth/authkey.guard";
 import { BuildsService } from "./builds.service";
 import { Build } from "./interfaces/build.entity";
 import { Response } from "express";
-
-const PRIVATE_KEY = "Wmjg4Yg4vzMLGGK9ahrMY3BFayRmEwRDLxD5i9CdLTs4VyKKSrEZ4G7Rk5GQCFyu";
 
 @Controller("builds")
 export class BuildsController {
@@ -19,7 +16,6 @@ export class BuildsController {
     }
 
     @Put("upload")
-    @UseGuards(AuthKeyGuard(PRIVATE_KEY))
     @UseInterceptors(
         FileInterceptor("file", { storage: diskStorage({ destination: "./build_uploads" }) })
     )
@@ -31,13 +27,11 @@ export class BuildsController {
     }
 
     @Post("create")
-    @UseGuards(AuthKeyGuard(PRIVATE_KEY))
     async create(@Body() build: Build) {
         this.buildsService.create(build);
     }
 
     @Post("disable")
-    @UseGuards(AuthKeyGuard(PRIVATE_KEY))
     async disable(@Query("id") id: string) {
         this.buildsService.disable(id);
     }
