@@ -3,7 +3,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { createReadStream } from "fs";
 import { Repository } from "typeorm";
-import { Build } from "./models/build.entity";
+import { Build } from "./interfaces/build.entity";
 import { Response } from "express";
 
 @Injectable()
