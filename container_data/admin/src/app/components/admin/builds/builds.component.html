@@ -2,30 +2,59 @@
     <h1 class="h2">Build Management</h1>
 </div>
 
-<h4>List</h4>
+<h4>All Builds</h4>
 <div class="table-responsive">
     <table class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
+                <th>id</th>
+                <th>name</th>
+                <th>url</th>
+                <th>file_size</th>
+                <th>file_path</th>
+                <th>enabled</th>
             </tr>
         </thead>
-        <tbody>
-            <tr> <td>1,001</td> <td>Lorem</td> <td>ipsum</td> <td>dolor</td> <td>sit</td> </tr>
-            <tr> <td>1,001</td> <td>Lorem</td> <td>ipsum</td> <td>dolor</td> <td>sit</td> </tr>
-            <tr> <td>1,001</td> <td>Lorem</td> <td>ipsum</td> <td>dolor</td> <td>sit</td> </tr>
-            <tr> <td>1,001</td> <td>Lorem</td> <td>ipsum</td> <td>dolor</td> <td>sit</td> </tr>
-            <tr> <td>1,001</td> <td>Lorem</td> <td>ipsum</td> <td>dolor</td> <td>sit</td> </tr>
-            <tr> <td>1,001</td> <td>Lorem</td> <td>ipsum</td> <td>dolor</td> <td>sit</td> </tr>
-            <tr> <td>1,001</td> <td>Lorem</td> <td>ipsum</td> <td>dolor</td> <td>sit</td> </tr>
-            <tr> <td>1,001</td> <td>Lorem</td> <td>ipsum</td> <td>dolor</td> <td>sit</td> </tr>
-            <tr> <td>1,001</td> <td>Lorem</td> <td>ipsum</td> <td>dolor</td> <td>sit</td> </tr>
-            <tr> <td>1,001</td> <td>Lorem</td> <td>ipsum</td> <td>dolor</td> <td>sit</td> </tr>
-            <tr> <td>1,001</td> <td>Lorem</td> <td>ipsum</td> <td>dolor</td> <td>sit</td> </tr>
+
+        <tbody *ngFor="let build of builds">
+            <tr>
+                <td>{{build.id}}</td>
+                <td>{{build.name}}</td>
+                <td>{{build.url}}</td>
+                <td>{{build.file_size}}</td>
+                <td>{{build.file_path}}</td>
+                <td>{{build.enabled}}</td>
+            </tr>
         </tbody>
     </table>
 </div>
+
+<h4>Create Build</h4>
+<form style="max-width: 30vw;">
+    <div class="form-group">
+        <!-- <label for="exampleInputEmail1">Name</label> -->
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            placeholder="Name">
+    </div>
+
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+        <div class="invalid-feedback">Example invalid custom file feedback</div>
+    </div>
+
+    <div class="form-group">
+        <select class="custom-select">
+            <option value="1">Production</option>
+            <option value="2">Testing</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Changelog</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
