@@ -1,8 +1,8 @@
 
-import { Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { createReadStream } from "fs";
-import { Repository } from "typeorm";
+import * as fs from "fs"
+import { EntityNotFoundError, Repository } from "typeorm";
 import { Build } from "./interfaces/build.entity";
 import { Response } from "express";
 
@@ -15,24 +15,38 @@ export class BuildsService {
     ) { }
 
     async create(build: Build) {
-        // TODO: validate that the file_path exists
+        if (!fs.existsSync(build.file_path)) {
+            throw new ConflictException(`Unable to find the build's file path: '${build.file_path}'. Make sure it is uploaded before creating the build.`);
+        }
+
         this.buildsRepository.insert(build);
     }
 
-    async download(file_path: string, response: Response): Promise<void> {
-        // TODO: validate that the file exists
-        const data = createReadStream(file_path);
-        data.pipe(response);
+    async getBuildFile(buildId: number): Promise<fs.ReadStream> {
+        const build: Build = await this.find(buildId);
+        if (!build) {
+            throw new NotFoundException(`No build found with ID ${buildId}`);
+        }
+
+        if (!fs.existsSync(build.file_path)) {
+            throw new InternalServerErrorException(`File not found for build '${build.name}'`);
+        }
+
+        return fs.createReadStream(build.file_path);
     }
 
-    async disable(id: string): Promise<Build> {
-        const buildEntity = await this.buildsRepository.findOneOrFail(id);
-        buildEntity.enabled = false;
-        return this.buildsRepository.save(buildEntity);
+    async disable(buildId: number): Promise<Build> {
+        const build: Build = await this.find(buildId);
+        if (!build) {
+            throw new NotFoundException(`No build found with ID ${buildId}`);
+        }
+
+        build.enabled = false;
+        return this.buildsRepository.save(build);
     }
 
-    find(id: string): Promise<Build> {
-        return this.buildsRepository.findOne(id);
+    find(id: number): Promise<Build> {
+        return this.buildsRepository.findOne({id});
     }
 
     findAll(): Promise<Build[]> {
