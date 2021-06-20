@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { AccessToken } from "src/app/models/accesstoken.model";
 import { API_URL } from "src/app/models/constants";
 import { AuthService } from "src/app/services/auth.service";
 
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
         return throwError("Failed to login");
     }
 
-    private handleLoginSuccess(accessToken: string) {
+    private handleLoginSuccess(accessToken: AccessToken) {
 
         this.alert = {
             type: "success",
@@ -63,7 +64,7 @@ export class LoginComponent implements OnInit {
             return;
         }
 
-        this.httpClient.post(API_URL + "/auth/login", { username: this.username, password: this.password }, {responseType: "text"})
+        this.httpClient.post<AccessToken>(API_URL + "/auth/login", { username: this.username, password: this.password })
             .pipe(catchError(this.handleLoginError.bind(this)))
             .subscribe(this.handleLoginSuccess.bind(this));
     }
