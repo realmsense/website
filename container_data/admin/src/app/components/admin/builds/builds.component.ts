@@ -9,28 +9,14 @@ import { BuildsService } from "src/app/services/builds.service";
 })
 export class BuildsComponent implements OnInit {
 
-    builds: Build[] = [
-        {
-            id: 1,
-            enabled: true,
-            file_path: "sex",
-            file_size: 123,
-            name: "sex dupe",
-            url: ""
-        },
-        {
-            id: 1,
-            enabled: true,
-            file_path: "sex",
-            file_size: 123,
-            name: "sex dupe",
-            url: ""
-        }
-    ];
+    builds: Build[] = [];
 
     constructor(private buildService: BuildsService) { }
 
     ngOnInit(): void {
+        this.buildService.getBuilds().subscribe(builds => {
+            this.builds = builds;
+        });
     }
 
 }

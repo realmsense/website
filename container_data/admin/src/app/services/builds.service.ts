@@ -2,19 +2,16 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Build } from "../models/build.model";
+import { API_URL } from "../models/constants";
 
 @Injectable({
     providedIn: "root"
 })
 export class BuildsService {
 
-    private apiUrl = "https://api.ri.extacy.cc/";
-
     constructor(private httpClient: HttpClient) { }
 
     getBuilds(): Observable<Build[]> {
-        // TODO: needs authnetication
-        const url = this.apiUrl + "/builds";
-        return this.httpClient.get<Build[]>(url);
+        return this.httpClient.get<Build[]>(API_URL + "/builds/all");
     }
 }

@@ -3,10 +3,12 @@ import { RouterModule, Routes } from "@angular/router";
 import { AdminComponent } from "./components/admin/admin.component";
 import { BuildsComponent } from "./components/admin/builds/builds.component";
 import { HomeComponent } from "./components/home/home.component";
+import { LoginComponent } from "./components/login/login.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full"},
     { path: "home", component: HomeComponent},
+    { path: "login", component: LoginComponent},
     {
         path: "admin", component: AdminComponent,
         children: [
