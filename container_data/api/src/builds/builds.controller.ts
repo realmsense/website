@@ -5,7 +5,8 @@ import { diskStorage } from "multer";
 import { BuildsService } from "./builds.service";
 import { Build } from "./interfaces/build.entity";
 import { Response } from "express";
-import { createReadStream } from "fs";
+import { RequirePermission } from "src/auth/permissions/permission.decorator";
+import { Permission } from "src/auth/permissions/permission.enum";
 
 @Controller("builds")
 export class BuildsController {
@@ -13,6 +14,7 @@ export class BuildsController {
     constructor(private buildsService: BuildsService) { }
 
     @Put("upload")
+    @RequirePermission(Permission.MANAGE_BUILDS)
     @HttpCode(201)
     @UseInterceptors(
         FileInterceptor("file", { storage: diskStorage({ destination: "./build_uploads" }) })
@@ -31,11 +33,13 @@ export class BuildsController {
     }
 
     @Post("create")
+    @RequirePermission(Permission.MANAGE_BUILDS)
     async create(@Body() build: Build) {
         return this.buildsService.create(build);
     }
 
     @Post("disable")
+    @RequirePermission(Permission.MANAGE_BUILDS)
     async disable(@Query("id", ParseIntPipe) id: number) {
         return this.buildsService.disable(id);
     }

@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { IsNotEmpty } from "class-validator";
+import { Permission } from "src/auth/permissions/permission.enum";
 
 @Entity()
 export class User {
@@ -8,11 +9,15 @@ export class User {
 
     @Column()
     @IsNotEmpty()
-    username: string;
+    username?: string;
 
     @Column()
     @IsNotEmpty()
-    password: string;
+    password?: string;
+
+    @Column({ type: "json", default: "[]" })
+    @IsNotEmpty()
+    permissions?: Permission[];
 
     @Column({ default: true })
     enabled?: boolean;

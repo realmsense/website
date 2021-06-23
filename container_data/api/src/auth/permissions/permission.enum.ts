@@ -1,0 +1,8 @@
+export enum Permission {
+    BYPASS_SUBSCRIPTION = "BYPASS_SUBSCRIPTION",
+    PRIVATE_TESTING = "PRIVATE_TESTING",
+
+    // Administration
+    MANAGE_BUILDS = "MANAGE_BUILDS",
+    MANAGE_USERS = "MANAGE_USERS",
+}
