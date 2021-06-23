@@ -1,5 +1,5 @@
 import * as bcrypt from "bcrypt";
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { User } from "src/users/interfaces/user.entity";
 import { UsersService } from "src/users/users.service";
@@ -31,9 +31,40 @@ export class AuthService {
         };
     }
 
-    async register(username: string, password: string) {
-        const hash = await bcrypt.hash(password, 10);
-        this.usersService.insert({username, password: hash});
+    private async validateUsernamePassword(username: string, password: string) {
+        // Username must only be letters and numbers
+        const alphanumeric = /^[a-z0-9]+$/i;
+        if (!alphanumeric.test(username)) {
+            throw new HttpException("Username contains invalid characters. (Please use an alphanumeric string)", HttpStatus.BAD_REQUEST)
+        }
+
+        const MAX_USERNAME_LENGTH = 32;
+        if (username.length > MAX_USERNAME_LENGTH) {
+            throw new HttpException(`Username is too long. (Max ${MAX_USERNAME_LENGTH} characters)`, HttpStatus.BAD_REQUEST)
+        }
+
+        // https://en.wikipedia.org/wiki/Bcrypt#Maximum_password_length - (72 bytes == 72 chars)
+        const MAX_PASSWORD_LENGTH = 72;
+        if (password.length > MAX_PASSWORD_LENGTH) {
+            throw new HttpException(`Password is too long. (Max ${MAX_PASSWORD_LENGTH} characters)`, HttpStatus.BAD_REQUEST)
+        }
+
+        const existingUser = await this.usersService.findOne(username);
+        if (existingUser) {
+            throw new HttpException(`Username "${username}" already in use!`, HttpStatus.CONFLICT);
+        }
     }
 
+    async register(username: string, password: string) {
+
+        await this.validateUsernamePassword(username, password);
+
+        // Insert the user in the DB
+        const hash = await bcrypt.hash(password, 10);
+        const newUser: User = {
+            username: username,
+            password: hash
+        }
+        this.usersService.insert(newUser);
+    }
 }
