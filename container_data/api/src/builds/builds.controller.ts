@@ -7,6 +7,7 @@ import { Build } from "./interfaces/build.entity";
 import { Response } from "express";
 import { RequirePermission } from "src/auth/permissions/permission.decorator";
 import { Permission } from "src/auth/permissions/permission.enum";
+import { BuildType, CreateBuildTypeDTO } from "./interfaces/build_type.entity";
 
 @Controller("builds")
 export class BuildsController {
@@ -38,6 +39,12 @@ export class BuildsController {
         return this.buildsService.create(build);
     }
 
+    @Post("createType")
+    @RequirePermission(Permission.MANAGE_BUILDS)
+    async createType(@Body() buildType: CreateBuildTypeDTO) {
+        return this.buildsService.createType(buildType);
+    }
+
     @Post("disable")
     @RequirePermission(Permission.MANAGE_BUILDS)
     async disable(@Query("id", ParseIntPipe) id: number) {
@@ -47,6 +54,17 @@ export class BuildsController {
     @Get()
     async find(@Query("id", ParseIntPipe) id: number) {
         return this.buildsService.find(id);
+    }
+
+    @Get("types")
+    async findAllBuildTypes(): Promise<BuildType[]> {
+        return this.buildsService.findAllBuildTypes();
+    }
+
+    @Get("type")
+    async findType(@Query("name") name: string): Promise<BuildType> {
+        console.log(name);
+        return this.buildsService.findBuildType(name);
     }
 
     @Get("all")

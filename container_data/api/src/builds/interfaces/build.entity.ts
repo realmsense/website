@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { IsBase64, IsInt, isNotEmpty, IsNotEmpty, IsNumber, IsNumberString } from "class-validator";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { IsInt, IsNotEmpty} from "class-validator";
+import { BuildType } from "./build_type.entity";
 
 @Entity()
 export class Build {
@@ -10,9 +11,8 @@ export class Build {
     @IsNotEmpty()
     name: string;
 
-    @Column()
-    @IsNotEmpty()
-    url: string;
+    @ManyToOne(() => BuildType, buildType => buildType.builds, { eager: true })
+    type: BuildType;
 
     @Column()
     @IsInt()

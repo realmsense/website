@@ -5,6 +5,7 @@ import * as fs from "fs"
 import { EntityNotFoundError, Repository } from "typeorm";
 import { Build } from "./interfaces/build.entity";
 import { Response } from "express";
+import { BuildType, CreateBuildTypeDTO } from "./interfaces/build_type.entity";
 
 @Injectable()
 export class BuildsService {
@@ -12,6 +13,8 @@ export class BuildsService {
     constructor(
         @InjectRepository(Build)
         private buildsRepository: Repository<Build>,
+        @InjectRepository(BuildType)
+        private buildsTypesRepository: Repository<BuildType>,
     ) { }
 
     async create(build: Build) {
@@ -19,7 +22,24 @@ export class BuildsService {
             throw new ConflictException(`Unable to find the build's file path: '${build.file_path}'. Make sure it is uploaded before creating the build.`);
         }
 
-        this.buildsRepository.insert(build);
+        // TODO: should be sending build type as a JSON object... maybe
+        const buildTypeName = build.type as unknown as string;
+        const buildType = await this.findBuildType(buildTypeName);
+        if (!buildType) {
+            throw new ConflictException(`Unable to find Build Type '${buildTypeName}'`);
+        }
+
+        const insertResult = await this.buildsRepository.insert(build);
+        return this.find(insertResult.identifiers[0].id);
+    }
+
+    createType(createBuildType: CreateBuildTypeDTO) {
+        const buildType: BuildType = {
+            ...createBuildType,
+            builds: []
+        };
+
+        this.buildsTypesRepository.insert(buildType);
     }
 
     async getBuildFile(buildId: number): Promise<fs.ReadStream> {
@@ -47,6 +67,14 @@ export class BuildsService {
 
     find(id: number): Promise<Build> {
         return this.buildsRepository.findOne({id});
+    }
+
+    findAllBuildTypes(): Promise<BuildType[]> {
+        return this.buildsTypesRepository.find();
+    }
+
+    findBuildType(name: string): Promise<BuildType> {
+        return this.buildsTypesRepository.findOne({name});
     }
 
     findAll(): Promise<Build[]> {

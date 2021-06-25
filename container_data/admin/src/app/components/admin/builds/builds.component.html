@@ -9,7 +9,7 @@
             <tr>
                 <th>id</th>
                 <th>name</th>
-                <th>url</th>
+                <th>type</th>
                 <th>file_size</th>
                 <th>file_path</th>
                 <th>enabled</th>
@@ -20,7 +20,7 @@
             <tr>
                 <td>{{build.id}}</td>
                 <td>{{build.name}}</td>
-                <td>{{build.url}}</td>
+                <td>{{build.type.name}}</td>
                 <td>{{build.file_size}}</td>
                 <td>{{build.file_path}}</td>
                 <td>{{build.enabled}}</td>
@@ -32,29 +32,70 @@
 <h4>Create Build</h4>
 <form style="max-width: 30vw;">
     <div class="form-group">
-        <!-- <label for="exampleInputEmail1">Name</label> -->
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+        <input [(ngModel)]="createBuild.name" name="createBuild.name" type="text" class="form-control"
             placeholder="Name">
     </div>
 
     <div class="custom-file">
-        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+        <input (change)="onFileChange($event)" type="file" class="custom-file-input" required>
         <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-        <div class="invalid-feedback">Example invalid custom file feedback</div>
     </div>
 
     <div class="form-group">
-        <select class="custom-select">
-            <option value="1">Production</option>
-            <option value="2">Testing</option>
+        <select class="custom-select" [(ngModel)]="createBuild.type" name="createBuild.type">
+            <option *ngFor="let type of buildTypes">{{type.name}}</option>
         </select>
     </div>
 
-
     <div class="form-group">
-        <label for="exampleFormControlTextarea1">Changelog</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <label>Changelog</label>
+        <textarea [(ngModel)]="createBuild_Changelog" name="createBuild_Changelog" class="form-control"
+            rows="3"></textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button (click)="createBuild_BtnClick()" type="submit" class="btn btn-primary">Create</button>
+</form>
+
+<h4>Build Types</h4>
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>webhook</th>
+                <th>embed_template</th>
+            </tr>
+        </thead>
+
+        <tbody *ngFor="let type of buildTypes">
+            <tr>
+                <td>{{type.name}}</td>
+                <td>{{type.webhook_url}}</td>
+                <td>{{type.embed_template}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h4>Create Build Type</h4>
+<form style="max-width: 30vw;">
+    <div class="form-group">
+        <label for="createBuildType.name">Name</label>
+        <input [(ngModel)]="createBuildType.name" name="createBuildType.name" type="text" class="form-control"
+            placeholder="Name">
+    </div>
+
+    <div class="form-group">
+        <label for="createBuildType.webhook_url">Webhook URL</label>
+        <input [(ngModel)]="createBuildType.webhook_url" name="createBuildType.webhook_url" type="text"
+            class="form-control" placeholder="Webhook URL">
+    </div>
+
+    <div class="form-group">
+        <label for="createBuildType.embed_template">Embed Template</label>
+        <textarea [(ngModel)]="createBuildType.embed_template" name="createBuildType.embed_template"
+            class="form-control" rows="3"></textarea>
+    </div>
+
+    <button (click)="createBuildType_BtnClick()" type="submit" class="btn btn-primary">Create</button>
 </form>

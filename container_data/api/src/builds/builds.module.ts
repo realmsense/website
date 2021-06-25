@@ -7,9 +7,13 @@ import { PermissionGuard } from "src/auth/permissions/permission.guard";
 import { BuildsController } from "./builds.controller";
 import { BuildsService } from "./builds.service";
 import { Build } from "./interfaces/build.entity";
+import { BuildType } from "./interfaces/build_type.entity";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Build])],
+    imports: [
+        TypeOrmModule.forFeature([Build]),
+        TypeOrmModule.forFeature([BuildType])
+    ],
     controllers: [BuildsController],
     providers: [
         BuildsService,
