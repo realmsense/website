@@ -15,7 +15,7 @@ export class User {
     @IsNotEmpty()
     password?: string;
 
-    @Column({ type: "json", default: "[]" })
+    @Column({ type: "simple-json", default: "[]" })
     @IsNotEmpty()
     permissions?: Permission[];
 
