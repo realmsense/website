@@ -31,7 +31,7 @@ export class BuildsService {
         }
 
         const insertResult = await this.buildsRepository.insert(build);
-        return this.buildsRepository.find({id: insertResult.identifiers[0].id});
+        return this.buildsRepository.findOne({id: insertResult.identifiers[0].id});
     }
 
     async getBuildFile(user: User, buildId: number): Promise<fs.ReadStream> {
@@ -103,9 +103,11 @@ export class BuildsService {
         const freeTrialBuilds = await this.buildsRepository.find(searchBuild);
         builds = [...builds, ...freeTrialBuilds];
 
-        for (const build of builds) {
-            delete build.type.webhook_url;
-            delete build.type.embed_template;
+        if (!user.permissions.includes(Permission.MANAGE_BUILDS)) {
+            for (const build of builds) {
+                delete build.type.webhook_url;
+                delete build.type.embed_template;
+            }
         }
 
         if (id && builds.length == 1) {
