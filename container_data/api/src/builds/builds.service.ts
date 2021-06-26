@@ -1,11 +1,12 @@
-
+import * as fs from "fs"
 import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import * as fs from "fs"
-import { EntityNotFoundError, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { Build } from "./interfaces/build.entity";
-import { Response } from "express";
 import { BuildType, CreateBuildTypeDTO } from "./interfaces/build_type.entity";
+import { User } from "src/users/interfaces/user.entity";
+import { Permission } from "src/auth/permissions/permission.enum";
+import { DeepPartial } from "src/helpers";
 
 @Injectable()
 export class BuildsService {
@@ -30,20 +31,11 @@ export class BuildsService {
         }
 
         const insertResult = await this.buildsRepository.insert(build);
-        return this.find(insertResult.identifiers[0].id);
+        return this.buildsRepository.find({id: insertResult.identifiers[0].id});
     }
 
-    createType(createBuildType: CreateBuildTypeDTO) {
-        const buildType: BuildType = {
-            ...createBuildType,
-            builds: []
-        };
-
-        this.buildsTypesRepository.insert(buildType);
-    }
-
-    async getBuildFile(buildId: number): Promise<fs.ReadStream> {
-        const build: Build = await this.find(buildId);
+    async getBuildFile(user: User, buildId: number): Promise<fs.ReadStream> {
+        const build = await this.getBuilds(user, buildId);
         if (!build) {
             throw new NotFoundException(`No build found with ID ${buildId}`);
         }
@@ -55,8 +47,8 @@ export class BuildsService {
         return fs.createReadStream(build.file_path);
     }
 
-    async disable(buildId: number): Promise<Build> {
-        const build: Build = await this.find(buildId);
+    async disable(user: User, buildId: number): Promise<Build> {
+        const build = await this.getBuilds(user, buildId);
         if (!build) {
             throw new NotFoundException(`No build found with ID ${buildId}`);
         }
@@ -65,8 +57,71 @@ export class BuildsService {
         return this.buildsRepository.save(build);
     }
 
-    find(id: number): Promise<Build> {
-        return this.buildsRepository.findOne({id});
+    getAllBuilds() {
+        return this.buildsRepository.find();
+    }
+
+
+    async getBuilds(user: User): Promise<Build[]>;
+    async getBuilds(user: User, id: number): Promise<Build>;
+    async getBuilds(user: User, id: number = undefined): Promise<Build[] | Build> {
+
+        const searchBuild: DeepPartial<Build> = {
+            type: { name: "" },
+            enabled: true
+        };
+
+        if (id != undefined) {
+            searchBuild.id = id;
+        }
+
+        let builds: Build[] = [];
+
+        // Private Testing
+        if (user.permissions.includes(Permission.PRIVATE_TESTING)) {
+            searchBuild.type.name = "Private Testing";
+            const privateTestingBuilds = await this.buildsRepository.find(searchBuild);
+            builds = [...builds, ...privateTestingBuilds];
+        }
+
+        // Paid Builds
+        if (
+            user.permissions.includes(Permission.BYPASS_SUBSCRIPTION)
+            // TODO: Check if user has an active subscription
+        ) {
+            searchBuild.type.name = "Stable";
+            const stableBuilds = await this.buildsRepository.find(searchBuild);
+            builds = [...builds, ...stableBuilds];
+
+            searchBuild.type.name = "Testing";
+            const testingBuilds = await this.buildsRepository.find(searchBuild);
+            builds = [...builds, ...testingBuilds];
+        }
+
+        // Free Trial
+        searchBuild.type.name = "Free Trial";
+        const freeTrialBuilds = await this.buildsRepository.find(searchBuild);
+        builds = [...builds, ...freeTrialBuilds];
+
+        for (const build of builds) {
+            delete build.type.webhook_url;
+            delete build.type.embed_template;
+        }
+
+        if (id && builds.length == 1) {
+            return builds[0];
+        }
+
+        return builds;
+    }
+
+    createType(createBuildType: CreateBuildTypeDTO) {
+        const buildType: BuildType = {
+            ...createBuildType,
+            builds: []
+        };
+
+        this.buildsTypesRepository.insert(buildType);
     }
 
     findAllBuildTypes(): Promise<BuildType[]> {
@@ -74,14 +129,6 @@ export class BuildsService {
     }
 
     findBuildType(name: string): Promise<BuildType> {
-        return this.buildsTypesRepository.findOne({name});
-    }
-
-    findAll(): Promise<Build[]> {
-        return this.buildsRepository.find();
-    }
-
-    findEnabled(): Promise<Build[]> {
-        return this.buildsRepository.find({enabled: true});
+        return this.buildsTypesRepository.findOne({ name });
     }
 }
