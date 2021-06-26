@@ -64,7 +64,6 @@ export class BuildsComponent implements OnInit {
             return;
         }
 
-
         this.buildService.uploadBuild(this.createBuild_File).subscribe(
             (uploadedFile) => {
 
