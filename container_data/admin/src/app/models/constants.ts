@@ -1,1 +1,1 @@
-export const API_URL = "https://api.ri.extacy.cc";
+export const API_URL = "https://rs-api.extacy.cc";

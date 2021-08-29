@@ -6,43 +6,43 @@ services:
     build:
       context: ./container_data/api
       dockerfile: Dockerfile
-    container_name: "ri-api"
+    container_name: "rs-api"
     restart: unless-stopped
     volumes:
       - "./container_data/api:/usr/src/app"
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
-      - "traefik.http.routers.ri-api.rule=Host(`api.ri.extacy.cc`)"
-      - "traefik.http.routers.ri-api.entrypoints=websecure"
-      - "traefik.http.routers.ri-api.tls.certresolver=tlschallenge"
-      - "traefik.http.services.ri-api.loadbalancer.server.port=3000"
+      - "traefik.http.routers.rs-api.rule=Host(`rs-api.extacy.cc`)"
+      - "traefik.http.routers.rs-api.entrypoints=websecure"
+      - "traefik.http.routers.rs-api.tls.certresolver=tlschallenge"
+      - "traefik.http.services.rs-api.loadbalancer.server.port=3000"
     networks:
       - traefik
-      - rotmg-internal
+      - realmsense
 
   admin:
     build:
       context: ./container_data/admin
       dockerfile: Dockerfile
-    container_name: "ri-admin"
+    container_name: "rs-admin"
     restart: unless-stopped
     volumes:
       - "./container_data/admin:/usr/src/app"
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
-      - "traefik.http.routers.ri-admin.rule=Host(`admin.ri.extacy.cc`)"
-      - "traefik.http.routers.ri-admin.entrypoints=websecure"
-      - "traefik.http.routers.ri-admin.tls.certresolver=tlschallenge"
-      - "traefik.http.services.ri-admin.loadbalancer.server.port=4200"
+      - "traefik.http.routers.rs-admin.rule=Host(`rs.extacy.cc`)"
+      - "traefik.http.routers.rs-admin.entrypoints=websecure"
+      - "traefik.http.routers.rs-admin.tls.certresolver=tlschallenge"
+      - "traefik.http.services.rs-admin.loadbalancer.server.port=4200"
     networks:
       - traefik
-      - rotmg-internal
+      - realmsense
 
   database:
     image: "mariadb:latest"
-    container_name: "ri-mariadb"
+    container_name: "rs-mariadb"
     restart: unless-stopped
     volumes:
       - "./container_data/mariadb:/var/lib/mysql"
@@ -52,11 +52,11 @@ services:
       - MYSQL_USER=erRiMgi4wVeZ5TT7m8HVWjiqZhofKmeU
       - MYSQL_PASSWORD=ohLPVrwJvXtcatDWjLE8QwBiLA9zfDLH
     networks:
-      - rotmg-internal
+      - realmsense
 
   phpmyadmin:
     image: "phpmyadmin/phpmyadmin:latest"
-    container_name: "ri-phpmyadmin"
+    container_name: "rs-phpmyadmin"
     restart: unless-stopped
     environment:
       - PMA_HOST=database
@@ -64,16 +64,16 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
-      - "traefik.http.routers.ri-phpmyadmin.rule=Host(`phpmyadmin.ri.extacy.cc`)"
-      - "traefik.http.routers.ri-phpmyadmin.entrypoints=websecure"
-      - "traefik.http.routers.ri-phpmyadmin.tls.certresolver=tlschallenge"
+      - "traefik.http.routers.rs-phpmyadmin.rule=Host(`rs-pma.extacy.cc`)"
+      - "traefik.http.routers.rs-phpmyadmin.entrypoints=websecure"
+      - "traefik.http.routers.rs-phpmyadmin.tls.certresolver=tlschallenge"
     networks:
       - traefik
-      - rotmg-internal
-  
+      - realmsense
+
 
 networks:
   traefik:
     external: true
-  rotmg-internal:
+  realmsense:
     external: false
