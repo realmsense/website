@@ -2,21 +2,21 @@ version: "3.9"
 
 services:
   
-  admin:
+  website:
     build:
       context: ./container_data
       dockerfile: Dockerfile
-    container_name: "rs-admin"
+    container_name: "rs-website"
     restart: unless-stopped
     volumes:
       - "./container_data:/usr/src/app"
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
-      - "traefik.http.routers.rs-admin.rule=Host(`rs.extacy.cc`)"
-      - "traefik.http.routers.rs-admin.entrypoints=websecure"
-      - "traefik.http.routers.rs-admin.tls.certresolver=dnsresolver"
-      - "traefik.http.services.rs-admin.loadbalancer.server.port=4200"
+      - "traefik.http.routers.rs-website.rule=Host(`rs.extacy.cc`)"
+      - "traefik.http.routers.rs-website.entrypoints=websecure"
+      - "traefik.http.routers.rs-website.tls.certresolver=dnsresolver"
+      - "traefik.http.services.rs-website.loadbalancer.server.port=4200"
     networks:
       - traefik
       - realmsense
