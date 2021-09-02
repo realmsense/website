@@ -1,11 +1,9 @@
 # api
-container_data/api/node_modules
-container_data/api/dist
-container_data/api/build_uploads
+api/container_data/node_modules
+api/container_data/build_uploads
+api/container_data/dist
 
 # db
-container_data/mariadb/
+mariadb/container_data
 
-# node_modules
-# dist
-# mariadb/
+# admin
