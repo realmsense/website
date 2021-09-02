@@ -19,7 +19,7 @@ export class UsersService {
         this.usersRepository.insert(user);
     }
 
-    async update(id: number, updatedUser: User) {
+    async update(id: number, updatedUser: Partial<User>) {
         const foundUser = await this.usersRepository.findOne({id: id});
         if (!foundUser) {
             throw new NotFoundException(`No user found with ID ${id}`);

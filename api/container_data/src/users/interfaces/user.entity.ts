@@ -5,20 +5,23 @@ import { Permission } from "src/auth/permissions/permission.enum";
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id?: number;
+    id: number;
 
     @Column()
     @IsNotEmpty()
-    username?: string;
+    username: string;
 
     @Column()
     @IsNotEmpty()
-    password?: string;
+    password: string;
 
     @Column({ type: "simple-json", default: "[]" })
     @IsNotEmpty()
-    permissions?: Permission[];
+    permissions: Permission[];
 
     @Column({ default: true })
-    enabled?: boolean;
+    enabled: boolean;
+
+    @Column({ type: "timestamp" })
+    createdAt: Date;
 }

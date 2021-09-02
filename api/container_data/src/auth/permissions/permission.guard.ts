@@ -14,7 +14,7 @@ export class PermissionGuard implements CanActivate {
         const requiredPermission: Permission = this.reflector.getAllAndOverride<Permission>(PERMISSION_KEY, [
             context.getHandler(),
             context.getClass()
-    ]);
+        ]);
 
         if (!requiredPermission) return true;
 

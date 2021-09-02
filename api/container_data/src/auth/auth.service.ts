@@ -58,13 +58,12 @@ export class AuthService {
     async register(username: string, password: string) {
 
         await this.validateUsernamePassword(username, password);
-
-        // Insert the user in the DB
+        
         const hash = await bcrypt.hash(password, 10);
-        const newUser: User = {
-            username: username,
-            password: hash
-        }
-        this.usersService.insert(newUser);
+
+        const user = new User();
+        user.username = username;
+        user.password = hash;
+        this.usersService.insert(user);
     }
 }
