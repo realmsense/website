@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { throwError } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Build } from "src/app/models/build.model";
 import { BuildType } from "src/app/models/buildType.model";
@@ -13,18 +13,18 @@ import { BuildsService } from "src/app/services/builds.service";
 })
 export class BuildsComponent implements OnInit {
 
-    builds: Build[] = [];
-    buildTypes: BuildType[] = [];
+    public builds: Build[] = [];
+    public buildTypes: BuildType[] = [];
 
-    createBuild: Omit<Build, "id"|"enabled">;
-    createBuild_File: File;
-    createBuild_Changelog: string;
+    public createBuild: Omit<Build, "id"|"enabled">;
+    public createBuild_File: File;
+    public createBuild_Changelog: string;
 
-    createBuildType: BuildType;
+    public createBuildType: BuildType;
 
     constructor(private buildService: BuildsService) { }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.buildService.getBuilds().subscribe(builds => {
             this.builds = builds;
         });
@@ -48,11 +48,11 @@ export class BuildsComponent implements OnInit {
         };
     }
 
-    private handleCreateTypeError(error: HttpErrorResponse) {
+    private handleCreateTypeError(error: HttpErrorResponse): Observable<unknown> {
         return throwError(error.message);
     }
 
-    createBuild_BtnClick() {
+    public createBuild_BtnClick(): void {
 
         if (
             this.createBuild.name == ""
@@ -78,7 +78,7 @@ export class BuildsComponent implements OnInit {
                         (error) => {
                             console.log(error);
                         }
-                    )
+                    );
             },
 
             (error) => {
@@ -87,11 +87,11 @@ export class BuildsComponent implements OnInit {
         );
     }
 
-    onFileChange(event) {
+    public onFileChange(event): void {
         this.createBuild_File = event.target.files[0];
     }
 
-    createBuildType_BtnClick() {
+    public createBuildType_BtnClick(): void {
         if (
             this.createBuildType.name == ""
             || this.createBuildType.webhook_url == ""

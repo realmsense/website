@@ -1,5 +1,8 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { AccessToken } from "../models/accesstoken.model";
+import { API_URL } from "../models/constants";
 
 const ACCESS_TOKEN_KEY = "access_token";
 const EXPIRATION_KEY = "access_token_expiration";
@@ -9,22 +12,26 @@ const EXPIRATION_KEY = "access_token_expiration";
 })
 export class AuthService {
 
-    constructor() { }
+    constructor(private httpClient: HttpClient) { }
 
-    setSession(accessToken: AccessToken) {
+    public setSession(accessToken: AccessToken): void {
         localStorage.setItem(ACCESS_TOKEN_KEY, accessToken.token);
         localStorage.setItem(EXPIRATION_KEY, accessToken.expiration.toString());
     }
 
-    logout() {
+    public login(username: string, password: string): Observable<AccessToken> {
+        return this.httpClient.post<AccessToken>(API_URL + "/auth/login", { username, password});
+    }
+
+    public logout(): void {
         localStorage.removeItem(ACCESS_TOKEN_KEY);
         localStorage.removeItem(EXPIRATION_KEY);
     }
 
-    isLoggedIn(): boolean {
+    public isLoggedIn(): boolean {
         const timestamp = Math.floor(Date.now() / 1000);
 
-        let expiration = localStorage.getItem(EXPIRATION_KEY);
+        const expiration = localStorage.getItem(EXPIRATION_KEY);
         if (!expiration) {
             return false;
         }

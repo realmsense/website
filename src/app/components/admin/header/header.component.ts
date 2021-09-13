@@ -8,14 +8,15 @@ import { AuthService } from "src/app/services/auth.service";
 })
 export class HeaderComponent implements OnInit {
 
-    @Input() title: string;
+    @Input()
+    public title: string;
 
     constructor(private authService: AuthService) { }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
     }
 
-    logout() {
+    public logout(): void {
         this.authService.logout();
         window.location.reload(); // admin component automatically redirects if not logged in
     }

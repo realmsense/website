@@ -11,17 +11,19 @@ import { UsersService } from "src/app/services/users.service";
 })
 export class UsersComponent implements OnInit {
 
-    users: User[] = [];
+    public users: User[] = [];
 
-    currentUser: User;
-    currentPermissions: { [name: string]: boolean };
+    public currentUser: User;
+    public currentPermissions: {
+        [name: string]: boolean
+    };
 
     constructor(
         private usersService: UsersService,
         private router: Router
     ) { }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.usersService.getUsers().subscribe(users => {
             this.users = users;
         });
@@ -32,11 +34,11 @@ export class UsersComponent implements OnInit {
         }
     }
 
-    async editPermissions(user: User) {
+    public async editPermissions(user: User): Promise<void> {
         this.currentUser = user;
     }
 
-    async savePermissions() {
+    public async savePermissions(): Promise<void> {
         this.currentUser.permissions = [];
         for (const [permission, enabled] of Object.entries(this.currentPermissions)) {
             if (enabled) {
@@ -50,7 +52,7 @@ export class UsersComponent implements OnInit {
             });
     }
 
-    permissionsStr(): string[] {
+    public permissionsStr(): string[] {
         return Object.keys(Permission);
     }
 }

@@ -7,4 +7,4 @@ export interface UploadedFileResponse {
     originalname: string,
     path: string,
     size: number
-};
+}

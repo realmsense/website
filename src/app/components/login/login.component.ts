@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { throwError } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { AccessToken } from "src/app/models/accesstoken.model";
 import { API_URL } from "src/app/models/constants";
@@ -19,10 +19,10 @@ interface Alert {
 })
 export class LoginComponent implements OnInit {
 
-    alert: Alert;
+    public alert: Alert;
 
-    username: string;
-    password: string;
+    public username: string;
+    public password: string;
 
     constructor(
         private httpClient: HttpClient,
@@ -30,10 +30,11 @@ export class LoginComponent implements OnInit {
         private authService: AuthService
     ) { }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.alert = { type: "secondary d-none", message: "" }; // hidden alert
     }
 
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     private handleLoginError(error: HttpErrorResponse) {
         this.alert = {
             type: "danger",
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit {
         return throwError("Failed to login");
     }
 
-    private handleLoginSuccess(accessToken: AccessToken) {
+    private handleLoginSuccess(accessToken: AccessToken): void {
 
         this.alert = {
             type: "success",
@@ -55,7 +56,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("/admin");
     }
 
-    async login() {
+    public login(): void {
         if (!this.username || !this.password) {
             this.alert = {
                 type: "warning",
@@ -64,9 +65,8 @@ export class LoginComponent implements OnInit {
             return;
         }
 
-        this.httpClient.post<AccessToken>(API_URL + "/auth/login", { username: this.username, password: this.password })
+        this.authService.login(this.username, this.password)
             .pipe(catchError(this.handleLoginError.bind(this)))
             .subscribe(this.handleLoginSuccess.bind(this));
     }
-
 }

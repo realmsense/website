@@ -11,7 +11,7 @@ import { BuildsComponent } from "./components/admin/builds/builds.component";
 import { HeaderComponent } from "./components/admin/header/header.component";
 import { LoginComponent } from "./components/login/login.component";
 import { HTTP_INTERCEPTOR_PROVIDERS } from "./interceptors";
-import { UsersComponent } from './components/admin/users/users.component';
+import { UsersComponent } from "./components/admin/users/users.component";
 
 @NgModule({
     declarations: [

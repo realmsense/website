@@ -1,5 +1,5 @@
 export class BuildType {
-    name: string;
-    webhook_url: string;
-    embed_template: string;
+    public name: string;
+    public webhook_url: string;
+    public embed_template: string;
 }

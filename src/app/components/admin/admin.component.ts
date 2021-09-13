@@ -9,14 +9,14 @@ import { AuthService } from "src/app/services/auth.service";
 })
 export class AdminComponent implements OnInit {
 
-    title: string = "Admin Panel";
+    public title = "Admin Panel";
 
     constructor(
         private authService: AuthService,
         private router: Router
     ) { }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         if (!this.authService.isLoggedIn()) {
             this.router.navigateByUrl("/login");
             return;
