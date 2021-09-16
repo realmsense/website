@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { UsersService } from "./users.service";
 import { Permission, IUser } from "@realmsense/types";
+import { AuthService } from "../../../auth/auth.service";
 
 @Component({
     selector: "app-users",
@@ -19,6 +20,7 @@ export class UsersComponent implements OnInit {
 
     constructor(
         private usersService: UsersService,
+        private authService: AuthService,
         private router: Router
     ) { }
 
@@ -47,6 +49,10 @@ export class UsersComponent implements OnInit {
             if (enabled) {
                 this.editingUser.permissions.push(Permission[permission]);
             }
+        }
+
+        if (this.editingUser.id == this.authService.user.id) {
+            this.authService.user = this.editingUser;
         }
 
         this.usersService.updateUser(this.editingUser.id, this.editingUser)

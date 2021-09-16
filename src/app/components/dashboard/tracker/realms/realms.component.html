@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Realm Tracker</h1>
+</div>
+
+<!-- Filter here -->
+
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Server</th>
+                <th>Players</th>
+                <th>heroesLeft</th>
+                <th>openedTime</th>
+                <th>updatedTime</th>
+                <th>ip</th>
+            </tr>
+        </thead>
+
+        <tbody *ngFor="let realm of realms">
+            <tr>
+                <td>{{realm.name}}</td>
+                <td>{{realm.server.name}}</td>
+                <td>{{realm.players}} / {{realm.maxPlayers}} {{realm.queue > 0 ? " (+" + realm.queue + ")" : ""}}</td>
+                <td>{{realm.heroesLeft}}</td>
+                <td>{{realm.openedTime}}</td>
+                <td>{{realm.updatedTime}}</td>
+                <td>{{realm.ip}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

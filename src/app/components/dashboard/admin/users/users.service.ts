@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
-import { ENVIRONMENT } from "../../../../environments/environment";
 import { IUser } from "@realmsense/types";
+import { ENVIRONMENT } from "../../../../../environments/environment";
 
 @Injectable({
     providedIn: "root"

@@ -11,8 +11,9 @@ import { LoginComponent } from "./components/auth/login/login.component";
 import { ErrorModalComponent } from "./components/error-modal/error-modal.component";
 import { HomeComponent } from "./components/home/home.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
-import { BuildsComponent } from "./components/dashboard/builds/builds.component";
-import { UsersComponent } from "./components/dashboard/users/users.component";
+import { BuildsComponent } from "./components/dashboard/admin/builds/builds.component";
+import { UsersComponent } from "./components/dashboard/admin/users/users.component";
+import { RealmsComponent } from "./components/dashboard/tracker/realms/realms.component";
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import { UsersComponent } from "./components/dashboard/users/users.component";
         LoginComponent,
         UsersComponent,
         ErrorModalComponent,
+        RealmsComponent,
     ],
     imports: [
         BrowserModule,

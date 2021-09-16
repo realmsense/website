@@ -5,9 +5,9 @@ import { ENVIRONMENT } from "../../../environments/environment";
 import { AccessToken } from "./models/accesstoken.model";
 import { Permission, IUser } from "@realmsense/types";
 
-const ACCESS_TOKEN_KEY = "access_token";
-const EXPIRATION_KEY = "access_token_expiration";
-const USER_KEY = "user";
+export const ACCESS_TOKEN_KEY = "access_token";
+export const EXPIRATION_KEY = "access_token_expiration";
+export const USER_KEY = "user";
 
 @Injectable({
     providedIn: "root"
@@ -19,6 +19,10 @@ export class AuthService {
     public get user(): IUser {
         const userJSON = localStorage.getItem(USER_KEY) as string;
         return JSON.parse(userJSON);
+    }
+
+    public set user(user: IUser) {
+        localStorage.setItem(USER_KEY, JSON.stringify(user));
     }
 
     public login(username: string, password: string): Observable<AccessToken> {
@@ -58,5 +62,11 @@ export class AuthService {
         const adminPermissions = [Permission.MANAGE_USERS, Permission.MANAGE_BUILDS];
         const isAdmin = this.user?.permissions.some((permission) => adminPermissions.includes(permission));
         return isAdmin;
+    }
+
+    public isCustomer(): boolean {
+        const customerPermissions = [Permission.TRACKER_ACCESS, Permission.BYPASS_SUBSCRIPTION];
+        const isCustomer = this.user?.permissions.some((permission) => customerPermissions.includes(permission));
+        return isCustomer;
     }
 }

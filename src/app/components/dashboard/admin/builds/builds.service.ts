@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ENVIRONMENT } from "../../../../environments/environment";
-import { UploadedFileResponse } from "../../../models/uploadedFileResponse.model";
+import { ENVIRONMENT } from "../../../../../environments/environment";
+import { UploadedFileResponse } from "../../../../models/uploadedFileResponse.model";
 import { Build } from "./models/build.model";
 import { BuildType } from "./models/buildType.model";
 
