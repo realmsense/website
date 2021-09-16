@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http"
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { ENVIRONMENT } from "../../../../environments/environment";
-import { User } from "./models/user.model";
+import { IUser } from "@realmsense/types";
 
 @Injectable({
     providedIn: "root"
@@ -11,8 +11,8 @@ export class UsersService {
 
     constructor(private httpClient: HttpClient) { }
 
-    public getUsers(): Observable<User[]> {
-        return this.httpClient.get<User[]>(ENVIRONMENT.API_URL + "/user/all");
+    public getUsers(): Observable<IUser[]> {
+        return this.httpClient.get<IUser[]>(ENVIRONMENT.API_URL + "/user/all");
     }
 
     public register(username: string, password: string): Observable<void> {
@@ -20,7 +20,7 @@ export class UsersService {
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-    public updateUser(id: number, updatedUser: Partial<User>): Observable<void>{
+    public updateUser(id: number, updatedUser: Partial<IUser>): Observable<void>{
         const params = new HttpParams()
             .append("id", id);
 

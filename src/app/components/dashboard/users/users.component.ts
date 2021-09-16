@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Permission } from "../../auth/models";
-import { User } from "./models/user.model";
 import { UsersService } from "./users.service";
+import { Permission, IUser } from "@realmsense/types";
 
 @Component({
     selector: "app-users",
@@ -11,9 +10,9 @@ import { UsersService } from "./users.service";
 })
 export class UsersComponent implements OnInit {
 
-    public users: User[] = [];
+    public users: IUser[] = [];
 
-    public editingUser: User;
+    public editingUser: IUser;
     public editingPermissions: {
         [name: string]: boolean
     };
@@ -34,7 +33,7 @@ export class UsersComponent implements OnInit {
         }
     }
 
-    public async editPermissions(user: User): Promise<void> {
+    public async editPermissions(user: IUser): Promise<void> {
         this.editingUser = user;
 
         for (const permission of this.editingUser.permissions) {

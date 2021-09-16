@@ -2,9 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { ENVIRONMENT } from "../../../environments/environment";
-import { User } from "../dashboard/users/models/user.model";
 import { AccessToken } from "./models/accesstoken.model";
-import { Permission } from "./models/permission";
+import { Permission, IUser } from "@realmsense/types";
 
 const ACCESS_TOKEN_KEY = "access_token";
 const EXPIRATION_KEY = "access_token_expiration";
@@ -17,7 +16,7 @@ export class AuthService {
 
     constructor(private httpClient: HttpClient) { }
 
-    public get user(): User {
+    public get user(): IUser {
         const userJSON = localStorage.getItem(USER_KEY) as string;
         return JSON.parse(userJSON);
     }
@@ -34,7 +33,7 @@ export class AuthService {
         localStorage.setItem(EXPIRATION_KEY, accessToken.expiration.toString());
 
         // Set user profile
-        this.httpClient.get<User>(ENVIRONMENT.API_URL + "/user/profile")
+        this.httpClient.get<IUser>(ENVIRONMENT.API_URL + "/user/profile")
             .subscribe((user) => localStorage.setItem(USER_KEY, JSON.stringify(user)));
     }
 
