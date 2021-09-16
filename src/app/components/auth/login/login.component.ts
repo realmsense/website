@@ -50,8 +50,6 @@ export class LoginComponent implements OnInit {
             message: "Successfully logged in! Redirecting..."
         };
 
-        this.authService.setSession(accessToken);
-
         this.router.navigateByUrl("/admin");
     }
 
