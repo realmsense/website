@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Permission } from "src/app/models/permission";
-import { User } from "src/app/models/user.model";
-import { UsersService } from "src/app/services/users.service";
+import { Permission } from "src/app/components/auth/models/permission";
+import { User } from "src/app/components/admin/users/models/user.model";
+import { UsersService } from "src/app/components/admin/users/users.service";
 
 @Component({
     selector: "app-users",

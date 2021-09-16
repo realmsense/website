@@ -2,9 +2,9 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { Build } from "src/app/models/build.model";
-import { BuildType } from "src/app/models/buildType.model";
-import { BuildsService } from "src/app/services/builds.service";
+import { BuildsService } from "./builds.service";
+import { Build } from "./models/build.model";
+import { BuildType } from "./models/buildType.model";
 
 @Component({
     selector: "app-builds",

@@ -3,9 +3,8 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { AccessToken } from "src/app/models/accesstoken.model";
-import { API_URL } from "src/app/models/constants";
-import { AuthService } from "src/app/services/auth.service";
+import { AccessToken } from "src/app/components/auth/models/accesstoken.model";
+import { AuthService } from "src/app/components/auth/auth.service";
 
 interface Alert {
     type: string;

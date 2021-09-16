@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { AccessToken } from "../models/accesstoken.model";
-import { API_URL } from "../models/constants";
+import { API_URL } from "../../../constants";
+import { AccessToken } from "./models";
 
 const ACCESS_TOKEN_KEY = "access_token";
 const EXPIRATION_KEY = "access_token_expiration";

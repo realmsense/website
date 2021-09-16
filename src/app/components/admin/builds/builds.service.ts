@@ -1,10 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Build } from "../models/build.model";
-import { BuildType } from "../models/buildType.model";
-import { API_URL } from "../models/constants";
-import { UploadedFileResponse } from "../models/uploadedFileResponse.model";
+import { API_URL } from "../../../../constants";
+import { UploadedFileResponse } from "../../../models/uploadedFileResponse.model";
+import { Build } from "./models/build.model";
+import { BuildType } from "./models/buildType.model";
 
 @Injectable({
     providedIn: "root"
