@@ -9,7 +9,7 @@ import { BuildType } from "./models/buildType.model";
 @Component({
     selector: "app-builds",
     templateUrl: "./builds.component.html",
-    styleUrls: ["./builds.component.scss", "../admin.component.scss"]
+    styleUrls: ["./builds.component.scss"]
 })
 export class BuildsComponent implements OnInit {
 
