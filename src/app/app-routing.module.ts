@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AdminComponent } from "./components/admin/admin.component";
-import { BuildsComponent } from "./components/admin/builds/builds.component";
-import { UsersComponent } from "./components/admin/users/users.component";
 import { LoginComponent } from "./components/auth/login/login.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { BuildsComponent } from "./components/dashboard/builds/builds.component";
+import { UsersComponent } from "./components/dashboard/users/users.component";
 import { HomeComponent } from "./components/home/home.component";
 
 const routes: Routes = [
@@ -11,10 +11,10 @@ const routes: Routes = [
     { path: "home", component: HomeComponent},
     { path: "login", component: LoginComponent},
     {
-        path: "admin", component: AdminComponent,
+        path: "dashboard", component: DashboardComponent,
         children: [
-            { path: "builds", component: BuildsComponent },
-            { path: "users", component: UsersComponent },
+            { path: "admin/builds", component: BuildsComponent },
+            { path: "admin/users", component: UsersComponent },
         ]
     }
 ];

@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Permission } from "src/app/components/auth/models/permission";
-import { User } from "src/app/components/admin/users/models/user.model";
-import { UsersService } from "src/app/components/admin/users/users.service";
+import { Permission } from "../../auth/models";
+import { User } from "./models/user.model";
+import { UsersService } from "./users.service";
 
 @Component({
     selector: "app-users",
@@ -36,6 +36,7 @@ export class UsersComponent implements OnInit {
 
     public async editPermissions(user: User): Promise<void> {
         this.editingUser = user;
+
         for (const permission of this.editingUser.permissions) {
             this.editingPermissions[permission] = true;
         }

@@ -4,21 +4,21 @@ import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { AdminComponent } from "./components/admin/admin.component";
-import { BuildsComponent } from "./components/admin/builds/builds.component";
-import { HeaderComponent } from "./components/admin/header/header.component";
-import { UsersComponent } from "./components/admin/users/users.component";
+import { HeaderComponent } from "./components/header/header.component";
 import { AuthInterceptor } from "./components/auth/auth.interceptor";
 import { HttpErrorInterceptor } from "./components/auth/http-error.interceptor";
 import { LoginComponent } from "./components/auth/login/login.component";
 import { ErrorModalComponent } from "./components/error-modal/error-modal.component";
 import { HomeComponent } from "./components/home/home.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { BuildsComponent } from "./components/dashboard/builds/builds.component";
+import { UsersComponent } from "./components/dashboard/users/users.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
-        AdminComponent,
+        DashboardComponent,
         BuildsComponent,
         HeaderComponent,
         LoginComponent,

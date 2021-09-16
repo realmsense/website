@@ -4,10 +4,10 @@ import { AuthService } from "src/app/components/auth/auth.service";
 
 @Component({
     selector: "app-admin",
-    templateUrl: "./admin.component.html",
-    styleUrls: ["./admin.component.scss"]
+    templateUrl: "./dashboard.component.html",
+    styleUrls: ["./dashboard.component.scss"]
 })
-export class AdminComponent implements OnInit {
+export class DashboardComponent implements OnInit {
 
     public title = "Admin Panel";
 

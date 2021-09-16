@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { ENVIRONMENT } from "../../../environments/environment";
-import { User } from "../admin/users/models/user.model";
+import { User } from "../dashboard/users/models/user.model";
 import { AccessToken } from "./models/accesstoken.model";
 import { Permission } from "./models/permission";
 
