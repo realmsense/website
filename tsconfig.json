@@ -21,8 +21,16 @@
         "lib": [
             "es2018",
             "dom"
-        ]
+        ],
+        "paths": {
+            "*": ["*"],
+            "@realmsense/types": ["./types/src"]
+        }
     },
+    "include": [
+        "src",
+        "./types/src"
+    ],
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
         "strictInjectionParameters": true,
