@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
     @Input()
     public title: string;
 
-    constructor(private authService: AuthService) { }
+    constructor(public authService: AuthService) { }
 
     public ngOnInit(): void {
     }
