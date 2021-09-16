@@ -13,8 +13,8 @@ export class UsersComponent implements OnInit {
 
     public users: User[] = [];
 
-    public currentUser: User;
-    public currentPermissions: {
+    public editingUser: User;
+    public editingPermissions: {
         [name: string]: boolean
     };
 
@@ -28,25 +28,28 @@ export class UsersComponent implements OnInit {
             this.users = users;
         });
 
-        this.currentPermissions = {};
+        this.editingPermissions = {};
         for (const permission in Permission) {
-            this.currentPermissions[permission] = false;
+            this.editingPermissions[permission] = false;
         }
     }
 
     public async editPermissions(user: User): Promise<void> {
-        this.currentUser = user;
+        this.editingUser = user;
+        for (const permission of this.editingUser.permissions) {
+            this.editingPermissions[permission] = true;
+        }
     }
 
     public async savePermissions(): Promise<void> {
-        this.currentUser.permissions = [];
-        for (const [permission, enabled] of Object.entries(this.currentPermissions)) {
+        this.editingUser.permissions = [];
+        for (const [permission, enabled] of Object.entries(this.editingPermissions)) {
             if (enabled) {
-                this.currentUser.permissions.push(Permission[permission]);
+                this.editingUser.permissions.push(Permission[permission]);
             }
         }
 
-        this.usersService.updateUser(this.currentUser.id, this.currentUser)
+        this.usersService.updateUser(this.editingUser.id, this.editingUser)
             .subscribe(() => {
                 this.ngOnInit();
             });
