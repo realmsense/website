@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { API_URL } from "../../../constants";
+import { ENVIRONMENT } from "../../../environments/environment";
 import { AccessToken } from "./models";
 
 const ACCESS_TOKEN_KEY = "access_token";
@@ -20,7 +20,7 @@ export class AuthService {
     }
 
     public login(username: string, password: string): Observable<AccessToken> {
-        return this.httpClient.post<AccessToken>(API_URL + "/auth/login", { username, password});
+        return this.httpClient.post<AccessToken>(ENVIRONMENT.API_URL + "/auth/login", { username, password});
     }
 
     public logout(): void {
