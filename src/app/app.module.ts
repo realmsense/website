@@ -9,7 +9,9 @@ import { BuildsComponent } from "./components/admin/builds/builds.component";
 import { HeaderComponent } from "./components/admin/header/header.component";
 import { UsersComponent } from "./components/admin/users/users.component";
 import { AuthInterceptor } from "./components/auth/auth.interceptor";
+import { HttpErrorInterceptor } from "./components/auth/http-error.interceptor";
 import { LoginComponent } from "./components/auth/login/login.component";
+import { ErrorModalComponent } from "./components/error-modal/error-modal.component";
 import { HomeComponent } from "./components/home/home.component";
 
 @NgModule({
@@ -20,7 +22,8 @@ import { HomeComponent } from "./components/home/home.component";
         BuildsComponent,
         HeaderComponent,
         LoginComponent,
-        UsersComponent
+        UsersComponent,
+        ErrorModalComponent,
     ],
     imports: [
         BrowserModule,
@@ -29,7 +32,8 @@ import { HomeComponent } from "./components/home/home.component";
         FormsModule
     ],
     providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     ],
     bootstrap: [AppComponent]
 })
