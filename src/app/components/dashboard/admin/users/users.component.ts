@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { UsersService } from "./users.service";
 import { Permission, IUser } from "@realmsense/types";
 import { AuthService } from "../../../auth/auth.service";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: "app-users",
@@ -18,10 +19,12 @@ export class UsersComponent implements OnInit {
         [name: string]: boolean
     };
 
+    public closeResult = "";
+
     constructor(
         private usersService: UsersService,
         private authService: AuthService,
-        private router: Router
+        private modalService: NgbModal
     ) { }
 
     public ngOnInit(): void {
@@ -35,7 +38,8 @@ export class UsersComponent implements OnInit {
         }
     }
 
-    public async editPermissions(user: IUser): Promise<void> {
+    public async editPermissions(content, user: IUser): Promise<void> {
+        this.modalService.open(content, { ariaLabelledBy: "modal-basic-title" });
         this.editingUser = user;
 
         for (const permission of this.editingUser.permissions) {

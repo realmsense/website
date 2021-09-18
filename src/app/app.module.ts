@@ -14,6 +14,7 @@ import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { BuildsComponent } from "./components/dashboard/admin/builds/builds.component";
 import { UsersComponent } from "./components/dashboard/admin/users/users.component";
 import { RealmsComponent } from "./components/dashboard/tracker/realms/realms.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { RealmsComponent } from "./components/dashboard/tracker/realms/realms.co
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        NgbModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

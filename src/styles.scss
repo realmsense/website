@@ -3,8 +3,9 @@
 // bootstrap
 $navbar-padding-x: 1rem;
 
-@import "~bootstrap/scss/bootstrap";
-
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/regular.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

@@ -22,7 +22,7 @@
                 <!-- <td>{{user.password}}</td> -->
                 <td>
                     {{user.permissions}}
-                    <a (click)="editPermissions(user)" style="cursor: pointer; color: Tomato;" data-toggle="modal"
+                    <a (click)="editPermissions(content, user)" style="cursor: pointer; color: Tomato;" data-toggle="modal"
                         data-target="#exampleModal">
                         <i class="fas fa-pen-square"></i>
                     </a>
@@ -33,31 +33,26 @@
     </table>
 </div>
 
-<!-- Permissions Modal -->
-<div *ngIf="editingUser" class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Permissions for "{{editingUser.username}}"</h5>
-                <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <div class="form-check" *ngFor="let permission of permissionsStr()">
-                    <input class="form-check-input" type="checkbox" [(ngModel)]="editingPermissions[permission]"
-                        id="{{permission}}">
-                    <label class="form-check-label" for="{{permission}}">
-                        {{permission}}
-                    </label>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button (click)="savePermissions()" type="button" class="btn btn-primary" data-dismiss="modal">Save
-                    changes</button>
-            </div>
+<!-- Edit User Permissions Modal -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Permissions for "{{editingUser.username}}"</h4>
+        <button (click)="modal.dismiss()" type="button" class="close btn-close" data-dismiss="modal" aria-label="Close"></button>
+    </div>
+    
+    <div class="modal-body">
+        <div class="form-check" *ngFor="let permission of permissionsStr()">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="editingPermissions[permission]"
+                id="{{permission}}">
+            <label class="form-check-label" for="{{permission}}">
+                {{permission}}
+            </label>
         </div>
     </div>
-</div>
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Cancel</button>
+        <button (click)="savePermissions()" type="button" class="btn btn-primary" (click)="modal.close()">Save
+            changes</button>
+    </div>
+</ng-template>
