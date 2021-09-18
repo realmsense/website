@@ -25,6 +25,7 @@
     "@ng-bootstrap/ng-bootstrap": "^11.0.0-beta.2",
     "bootstrap": "^5.1.1",
     "event-source-polyfill": "^1.0.25",
+    "luxon": "^2.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
@@ -35,6 +36,7 @@
     "@angular/compiler-cli": "~12.0.3",
     "@angular/localize": "^12.0.3",
     "@types/jasmine": "~3.6.0",
+    "@types/luxon": "^2.0.4",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
