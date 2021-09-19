@@ -1,7 +1,6 @@
-import { Component, ComponentFactoryResolver, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { IRealm } from "../../../../../../types/src";
-import { ENVIRONMENT } from "../../../../../environments/environment";
-import { ACCESS_TOKEN_KEY } from "../../../auth/auth.service";
+import { UtilService } from "../../../../util.service";
 import { RealmsService } from "./realms.service";
 
 @Component({
@@ -16,7 +15,8 @@ export class RealmsComponent implements OnInit {
     // TODO: add option to toggle SSE events
 
     constructor(
-        private realmsService: RealmsService
+        public realmsService: RealmsService,
+        public utilService: UtilService
     ) { }
 
     public ngOnInit(): void {

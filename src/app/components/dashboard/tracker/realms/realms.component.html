@@ -1,33 +1,94 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Realm Tracker</h1>
+    <h1>Realm Tracker</h1>
+
+    <div>
+        <div class="form-check form-switch float-end">
+            <input (click)="realmsService.toggleEvents()" [(ngModel)]="realmsService.eventsEnabled" class="form-check-input" type="checkbox"
+                id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Auto Refresh</label>
+        </div>
+        <br>
+        <p ngbTooltip="{{realmsService.lastRefreshTime.toRelative()}}" class="float-end"
+            style="margin: 0px 0px 0px 1em">Last Updated:
+            {{realmsService.lastRefreshTime.toLocaleString()}}</p>
+    </div>
+
 </div>
 
-<!-- Filter here -->
+<div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <div class="btn-group btn-group-toggle">
+        <button type="button" class="btn btn-primary btn-lg btn-block">Realms</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg btn-block">Events</button>
+    </div>
+</div>
 
-<div class="table-responsive">
-    <table class="table table-striped table-sm">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Server</th>
-                <th>Players</th>
-                <th>heroesLeft</th>
-                <th>openedTime</th>
-                <th>updatedTime</th>
-                <th>ip</th>
-            </tr>
-        </thead>
 
-        <tbody *ngFor="let realm of realms">
-            <tr>
-                <td>{{realm.name}}</td>
-                <td>{{realm.server.name}}</td>
-                <td>{{realm.players}} / {{realm.maxPlayers}} {{realm.queue > 0 ? " (+" + realm.queue + ")" : ""}}</td>
-                <td>{{realm.heroesLeft}}</td>
-                <td>{{realm.openedTime}}</td>
-                <td>{{realm.updatedTime}}</td>
-                <td>{{realm.ip}}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>Filters</h2>
+</div>
+<p>placeholder</p>
+<!-- Filters (server/events) here -->
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>Realm List</h2>
+
+    <div class="btn-group mr-3">
+        <div class="btn-group" ngbDropdown role="group" aria-label="dropdownOrderBy">
+            <button class="btn btn-outline-primary" id="dropdownOrderBy" ngbDropdownToggle>Order By</button>
+            <div class="dropdown-menu" ngbDropdownMenu>
+                <button ngbDropdownItem>Players</button>
+                <button ngbDropdownItem>Events</button>
+                <button ngbDropdownItem>Opened Time</button>
+                <button ngbDropdownItem>Updated Time</button>
+            </div>
+        </div>
+        <div class="btn-group" ngbDropdown role="group" aria-label="dropdownOrderBy">
+            <button class="btn btn-outline-success" ngbDropdownToggle>Ascending</button>
+            <div class="dropdown-menu" ngbDropdownMenu>
+                <button ngbDropdownItem>Descending</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="realm-list">
+    <div *ngFor="let realm of realms" class="realm">
+        <figure class="realm-image">
+            <img src="/assets/rotmg/dungeons/Oyrx's_Castle.png" alt="{{realm.server.name}} {{realm.name}}">
+            <figcaption>
+                <a>Copy IP
+                    <i class="far fa-clipboard"></i>
+                </a>
+            </figcaption>
+        </figure>
+
+        <div class="realm-info">
+            <div>
+                <p class="supertext">Server</p>
+                <p>{{realm.server.name}}</p>
+            </div>
+            <div>
+                <p class="supertext">Name</p>
+                <p>{{realm.name}}</p>
+            </div>
+            <div>
+                <p class="supertext">Players</p>
+                <p>{{realmsService.parsePlayersStr(realm)}}</p>
+            </div>
+            <div>
+                <p class="supertext">Events Left</p>
+                <!-- TODO -->
+                <p>32 Events</p>
+            </div>
+            <div>
+                <p class="supertext">Opened</p>
+                <p ngbTooltip="{{utilService.formatTime(realm.openedTime, false)}}">{{utilService.formatTime(realm.openedTime, true)}}</p>
+            </div>
+            <div>
+                <p class="supertext">Last Updated</p>
+                <p ngbTooltip="{{utilService.formatTime(realm.updatedTime, true)}}">
+                    {{utilService.formatTime(realm.updatedTime, false)}}</p>
+            </div>
+        </div>
+    </div>
 </div>

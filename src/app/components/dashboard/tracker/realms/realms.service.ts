@@ -1,11 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { of, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { IRealm } from "../../../../../../types/src";
 import { ENVIRONMENT } from "../../../../../environments/environment";
 import { IRealmEvent } from "@realmsense/types";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import { ACCESS_TOKEN_KEY } from "../../../auth/auth.service";
+import { DateTime } from "luxon";
 
 @Injectable({
     providedIn: "root"
@@ -13,11 +14,31 @@ import { ACCESS_TOKEN_KEY } from "../../../auth/auth.service";
 export class RealmsService {
 
     private realms: IRealm[] = [];
+    public display: "Events" | "Realms";
+
+    private eventSource: EventSource;
+    public eventsEnabled = true;
+    public lastRefreshTime: DateTime;
 
     constructor(private httpClient: HttpClient) { }
 
     public getRealms(): Observable<IRealm[]> {
-        return this.httpClient.get<IRealm[]>(ENVIRONMENT.API_URL + "/tracker/realms");
+        const realms = this.httpClient.get<IRealm[]>(ENVIRONMENT.API_URL + "/tracker/realms");
+        realms.subscribe((_) => this.lastRefreshTime = DateTime.now());
+        return realms;
+    }
+
+    public toggleEvents(): void {
+        this.eventsEnabled = !this.eventsEnabled;
+
+        if (!this.eventSource) return;
+
+        if (!this.eventsEnabled) {
+            this.eventSource.close();
+            console.log("Disconnected from realm events");
+        } else {
+            this.listenForEvents();
+        }
     }
 
     public listenForEvents(): void {
@@ -28,12 +49,12 @@ export class RealmsService {
 
         // const eventSource = new EventSource(ENVIRONMENT.API_URL + "/tracker/realms/events");
         // https://stackoverflow.com/a/32440307 - To use SSE with Authentication, this pollyfill is used, as the default SSE API does not support chaning headers.
-        const eventSource = new EventSourcePolyfill(ENVIRONMENT.API_URL + "/tracker/realms/events", {
+        this.eventSource = new EventSourcePolyfill(ENVIRONMENT.API_URL + "/tracker/realms/events", {
             headers: { Authorization: "Bearer " + accessToken },
         });
-        eventSource.addEventListener("open", this.onEventConnected.bind(this));
-        eventSource.addEventListener("message", this.onEventMessage.bind(this));
-        eventSource.addEventListener("error", this.onEventError.bind(this));
+        this.eventSource.addEventListener("open", this.onEventConnected.bind(this));
+        this.eventSource.addEventListener("message", this.onEventMessage.bind(this));
+        this.eventSource.addEventListener("error", this.onEventError.bind(this));
     }
 
     private onEventConnected(message: unknown): void {
@@ -69,5 +90,15 @@ export class RealmsService {
                 break;
             }
         }
+
+        this.lastRefreshTime = DateTime.now();
+    }
+
+    public parsePlayersStr(realm: IRealm): string {
+        let str = `${realm.players} / ${realm.maxPlayers}`;
+        if (realm.queue > 0) {
+            str += ` (+${realm.queue})`;
+        }
+        return str;
     }
 }

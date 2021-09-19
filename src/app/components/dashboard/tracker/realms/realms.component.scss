@@ -1,0 +1,64 @@
+a {
+    cursor: pointer;
+}
+
+.realm-list {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.realm {
+    display: flex;
+    background-color: #c3c6c9; 
+    border-radius: 1em;
+
+    padding: 1em 0;
+    margin: 1em;
+    width: 25em;
+
+    .realm-image {
+        // Center
+        width: 4.5em;
+        height: auto;
+        position: relative;
+        margin: 0 1em;
+        
+        // img {
+        //     position: absolute;
+        //     top: 0;
+        //     bottom: 0;
+        //     left: 0;
+        //     right: 0;
+        //     margin: auto;
+        // }
+
+        figcaption {
+            text-align: center;
+            a {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .realm-info {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5em;
+    
+        div {
+            .supertext {
+                color: #000000d1;
+                font-family: Consolas;
+                font-size: 13px;
+            }
+            
+            p {
+                margin: 0;
+                color: black;
+            }
+        }
+    }
+}
+
