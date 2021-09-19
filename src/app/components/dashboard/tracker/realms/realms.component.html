@@ -3,8 +3,8 @@
 
     <div>
         <div class="form-check form-switch float-end">
-            <input (click)="realmsService.toggleEvents()" [(ngModel)]="realmsService.eventsEnabled" class="form-check-input" type="checkbox"
-                id="flexSwitchCheckDefault">
+            <input (click)="realmsService.toggleEvents()" [(ngModel)]="realmsService.eventsEnabled"
+                class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
             <label class="form-check-label" for="flexSwitchCheckDefault">Auto Refresh</label>
         </div>
         <br>
@@ -34,25 +34,22 @@
 
     <div class="btn-group mr-3">
         <div class="btn-group" ngbDropdown role="group" aria-label="dropdownOrderBy">
-            <button class="btn btn-outline-primary" id="dropdownOrderBy" ngbDropdownToggle>Order By</button>
+            <button class="btn btn-outline-primary" id="dropdownOrderBy" ngbDropdownToggle>Order By ({{realmsService.realmsOrder}})</button>
             <div class="dropdown-menu" ngbDropdownMenu>
-                <button ngbDropdownItem>Players</button>
-                <button ngbDropdownItem>Events</button>
-                <button ngbDropdownItem>Opened Time</button>
-                <button ngbDropdownItem>Updated Time</button>
+                <button ngbDropdownItem *ngFor="let enum of RealmOrder | keyvalue: sortOriginal" (click)="realmsService.sortRealms(RealmOrder[enum.key])" >{{enum.value}}</button>
             </div>
         </div>
         <div class="btn-group" ngbDropdown role="group" aria-label="dropdownOrderBy">
-            <button class="btn btn-outline-success" ngbDropdownToggle>Ascending</button>
+            <button class="btn btn-outline-success" ngbDropdownToggle>{{realmsService.sortOrder == "Ascending" ? "Ascending" : "Descending"}}</button>
             <div class="dropdown-menu" ngbDropdownMenu>
-                <button ngbDropdownItem>Descending</button>
+                <button (click)="realmsService.swapOrder()" ngbDropdownItem>{{realmsService.sortOrder == "Ascending" ? "Descending" : "Ascending"}}</button>
             </div>
         </div>
     </div>
 </div>
 
 <div class="realm-list">
-    <div *ngFor="let realm of realms" class="realm">
+    <div *ngFor="let realm of realmsService.realms" class="realm">
         <figure class="realm-image">
             <img src="/assets/rotmg/dungeons/Oyrx's_Castle.png" alt="{{realm.server.name}} {{realm.name}}">
             <figcaption>
@@ -82,7 +79,8 @@
             </div>
             <div>
                 <p class="supertext">Opened</p>
-                <p ngbTooltip="{{utilService.formatTime(realm.openedTime, false)}}">{{utilService.formatTime(realm.openedTime, true)}}</p>
+                <p ngbTooltip="{{utilService.formatTime(realm.openedTime, false)}}">
+                    {{utilService.formatTime(realm.openedTime, true).replace(' ago', '')}}</p>
             </div>
             <div>
                 <p class="supertext">Last Updated</p>

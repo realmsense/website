@@ -7,14 +7,19 @@ import { IRealmEvent } from "@realmsense/types";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import { ACCESS_TOKEN_KEY } from "../../../auth/auth.service";
 import { DateTime } from "luxon";
+import { RealmOrder } from "./models/realms-order";
+import { SortOrder } from "../../../../models/sort-order";
 
 @Injectable({
     providedIn: "root"
 })
 export class RealmsService {
 
-    private realms: IRealm[] = [];
+    public realms: IRealm[] = [];
     public display: "Events" | "Realms";
+
+    public realmsOrder = RealmOrder.Players;
+    public sortOrder = SortOrder.Descending;
 
     private eventSource: EventSource;
     public eventsEnabled = true;
@@ -24,8 +29,57 @@ export class RealmsService {
 
     public getRealms(): Observable<IRealm[]> {
         const realms = this.httpClient.get<IRealm[]>(ENVIRONMENT.API_URL + "/tracker/realms");
-        realms.subscribe((_) => this.lastRefreshTime = DateTime.now());
+        realms.subscribe((realms) => {
+            this.realms = realms;
+            this.lastRefreshTime = DateTime.now();
+            this.sortRealms();
+        });
         return realms;
+    }
+
+    public swapOrder(): void {
+        if (this.sortOrder == SortOrder.Ascending) {
+            this.sortOrder = SortOrder.Descending;
+        } else {
+            this.sortOrder = SortOrder.Ascending;
+        }
+        this.sortRealms();
+    }
+
+    public sortRealms(order?: RealmOrder): void {
+        this.realmsOrder = order ?? this.realmsOrder;
+        switch (this.realmsOrder) {
+            case RealmOrder.Players:
+                this.realms.sort((a, b) => {
+                    return a.players - b.players;
+                });
+                break;
+            
+            case RealmOrder.EventsLeft:
+                // TODO
+                // this.realms.sort((a, b) => {
+                // });
+                break;
+
+            case RealmOrder.OpenedTime:
+                this.realms.sort((a, b) => {
+                    return b.openedTime - a.openedTime;
+                });
+                break;
+
+            case RealmOrder.UpdatedTime:
+                this.realms.sort((a, b) => {
+                    return b.updatedTime - a.updatedTime;
+                });
+                break;
+            
+            default:
+                break;
+        }
+
+        if (this.sortOrder == SortOrder.Descending) {
+            this.realms.reverse();
+        }
     }
 
     public toggleEvents(): void {
@@ -91,6 +145,7 @@ export class RealmsService {
             }
         }
 
+        this.sortRealms();
         this.lastRefreshTime = DateTime.now();
     }
 

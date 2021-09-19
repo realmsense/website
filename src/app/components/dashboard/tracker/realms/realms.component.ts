@@ -1,6 +1,8 @@
+import { KeyValue } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
-import { IRealm } from "../../../../../../types/src";
+import { SortOrder } from "../../../../models/sort-order";
 import { UtilService } from "../../../../util.service";
+import { RealmOrder } from "./models/realms-order";
 import { RealmsService } from "./realms.service";
 
 @Component({
@@ -10,7 +12,8 @@ import { RealmsService } from "./realms.service";
 })
 export class RealmsComponent implements OnInit {
 
-    public realms: IRealm[] = [];
+    public RealmOrder = RealmOrder;
+    public SortOrder = SortOrder;
 
     // TODO: add option to toggle SSE events
 
@@ -20,9 +23,13 @@ export class RealmsComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
-        this.realmsService.getRealms()
-            .subscribe((realms) => this.realms = realms);
-
+        this.realmsService.getRealms().subscribe();
         this.realmsService.listenForEvents();
     }
+
+    public sortOriginal(a: RealmOrderKeyValue, b: RealmOrderKeyValue): number {
+        return 0;
+    }
 }
+
+type RealmOrderKeyValue = KeyValue<"Players" | "EventsLeft" | "OpenedTime" | "UpdatedTime", RealmOrder>;
