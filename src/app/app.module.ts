@@ -15,6 +15,7 @@ import { BuildsComponent } from "./components/dashboard/admin/builds/builds.comp
 import { UsersComponent } from "./components/dashboard/admin/users/users.component";
 import { RealmsComponent } from "./components/dashboard/tracker/realms/realms.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { CopyClipboardDirective } from "./directives/copy-clipboard-directive";
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
         UsersComponent,
         ErrorModalComponent,
         RealmsComponent,
+        CopyClipboardDirective
     ],
     imports: [
         BrowserModule,

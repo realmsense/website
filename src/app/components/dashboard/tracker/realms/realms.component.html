@@ -27,6 +27,7 @@
     <h2>Filters</h2>
 </div>
 <p>placeholder</p>
+
 <!-- Filters (server/events) here -->
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -34,15 +35,19 @@
 
     <div class="btn-group mr-3">
         <div class="btn-group" ngbDropdown role="group" aria-label="dropdownOrderBy">
-            <button class="btn btn-outline-primary" id="dropdownOrderBy" ngbDropdownToggle>Order By ({{realmsService.realmsOrder}})</button>
+            <button class="btn btn-outline-primary" id="dropdownOrderBy" ngbDropdownToggle>Order By
+                ({{realmsService.realmsOrder}})</button>
             <div class="dropdown-menu" ngbDropdownMenu>
-                <button ngbDropdownItem *ngFor="let enum of RealmOrder | keyvalue: sortOriginal" (click)="realmsService.sortRealms(RealmOrder[enum.key])" >{{enum.value}}</button>
+                <button ngbDropdownItem *ngFor="let enum of RealmOrder | keyvalue: sortOriginal"
+                    (click)="realmsService.sortRealms(RealmOrder[enum.key])">{{enum.value}}</button>
             </div>
         </div>
         <div class="btn-group" ngbDropdown role="group" aria-label="dropdownOrderBy">
-            <button class="btn btn-outline-success" ngbDropdownToggle>{{realmsService.sortOrder == "Ascending" ? "Ascending" : "Descending"}}</button>
+            <button class="btn btn-outline-success" ngbDropdownToggle>{{realmsService.sortOrder == "Ascending" ?
+                "Ascending" : "Descending"}}</button>
             <div class="dropdown-menu" ngbDropdownMenu>
-                <button (click)="realmsService.swapOrder()" ngbDropdownItem>{{realmsService.sortOrder == "Ascending" ? "Descending" : "Ascending"}}</button>
+                <button (click)="realmsService.swapOrder()" ngbDropdownItem>{{realmsService.sortOrder == "Ascending" ?
+                    "Descending" : "Ascending"}}</button>
             </div>
         </div>
     </div>
@@ -53,9 +58,19 @@
         <figure class="realm-image">
             <img src="/assets/rotmg/dungeons/Oyrx's_Castle.png" alt="{{realm.server.name}} {{realm.name}}">
             <figcaption>
-                <a>Copy IP
-                    <i class="far fa-clipboard"></i>
-                </a>
+
+                <!-- Has IP -->
+                <ng-container *ngIf="realm.ip">
+                    <a ngbTooltip="Copied!" triggers="click:blur" role="button" [copy-clipboard]="realm.ip">Copy IP
+                        <i class="far fa-clipboard"></i>
+                    </a>
+                </ng-container>
+
+                <!-- No IP -->
+                <ng-container *ngIf="!realm.ip">
+                    <p>Unknown IP</p>
+                </ng-container>
+
             </figcaption>
         </figure>
 
@@ -74,8 +89,7 @@
             </div>
             <div>
                 <p class="supertext">Events Left</p>
-                <!-- TODO -->
-                <p>32 Events</p>
+                <p>{{realm.heroesLeft ? realm.heroesLeft : "??"}} Events</p>
             </div>
             <div>
                 <p class="supertext">Opened</p>
