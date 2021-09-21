@@ -1,14 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { IRealm } from "../../../../../../types/src";
 import { ENVIRONMENT } from "../../../../../environments/environment";
-import { IRealmEvent } from "@realmsense/types";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import { ACCESS_TOKEN_KEY } from "../../../auth/auth.service";
 import { DateTime } from "luxon";
 import { RealmOrder } from "./models/realms-order";
 import { SortOrder } from "../../../../models/sort-order";
+import { IRealm, IRealmEvent, Servers } from "@realmsense/types";
+import { KeyValue } from "@angular/common";
 
 @Injectable({
     providedIn: "root"
@@ -16,10 +16,13 @@ import { SortOrder } from "../../../../models/sort-order";
 export class RealmsService {
 
     public realms: IRealm[] = [];
-    public display: "Events" | "Realms";
+    public groupedRealms: {
+        [serverName: string]: IRealm[]
+    };
 
     public realmsOrder = RealmOrder.Players;
     public sortOrder = SortOrder.Descending;
+    public groupByServer = false;
 
     private eventSource: EventSource;
     public eventsEnabled = true;
@@ -44,6 +47,27 @@ export class RealmsService {
             this.sortOrder = SortOrder.Ascending;
         }
         this.sortRealms();
+    }
+
+    public groupRealms(): void {
+        this.groupedRealms = {};
+        const realms = [...this.realms];
+        for (const server of Servers) {
+            this.groupedRealms[server.name] = [];
+
+            for (const [index, realm] of realms.entries()) {
+                if (realm.server.name == server.name) {
+                    this.groupedRealms[server.name].push(realm);
+                    // realms.splice(index, 1);
+                }
+            }
+        }
+
+        console.log(this.groupedRealms);
+    }
+
+    public groupedRealmSort(a: KeyValue<string, IRealm[]>, b: KeyValue<string, IRealm[]>): number {
+        return b.value.length - a.value.length;
     }
 
     public sortRealms(order?: RealmOrder): void {
