@@ -22,7 +22,7 @@ export class RealmsService {
 
     public realmsOrder = RealmOrder.Players;
     public sortOrder = SortOrder.Descending;
-    public groupByServer = false;
+    public groupByServer = true;
 
     private eventSource: EventSource;
     public eventsEnabled = true;
