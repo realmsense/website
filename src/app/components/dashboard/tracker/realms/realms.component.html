@@ -38,7 +38,7 @@
             <button class="btn btn-outline-primary" id="dropdownOrderBy" ngbDropdownToggle>Order By
                 ({{realmsService.realmsOrder}})</button>
             <div class="dropdown-menu" ngbDropdownMenu>
-                <button ngbDropdownItem *ngFor="let enum of RealmOrder | keyvalue: sortOriginal"
+                <button ngbDropdownItem *ngFor="let enum of RealmOrder | keyvalue: utilService.sortOriginal"
                     (click)="realmsService.sortRealms(RealmOrder[enum.key])">{{enum.value}}</button>
             </div>
         </div>

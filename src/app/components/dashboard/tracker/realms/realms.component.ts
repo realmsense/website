@@ -26,10 +26,4 @@ export class RealmsComponent implements OnInit {
         this.realmsService.getRealms().subscribe();
         this.realmsService.listenForEvents();
     }
-
-    public sortOriginal(a: RealmOrderKeyValue, b: RealmOrderKeyValue): number {
-        return 0;
-    }
 }
-
-type RealmOrderKeyValue = KeyValue<"Players" | "EventsLeft" | "OpenedTime" | "UpdatedTime", RealmOrder>;

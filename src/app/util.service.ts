@@ -14,4 +14,9 @@ export class UtilService {
         }
         return DateTime.fromMillis(ms).toLocaleString(format);
     }
+
+    // Keys, Value example:  KeyValue<"Players" | "EventsLeft" | "OpenedTime" | "UpdatedTime", RealmOrder>
+    public sortOriginal(a, b): number {
+        return 0;
+    }
 }
