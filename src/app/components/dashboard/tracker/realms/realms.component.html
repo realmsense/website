@@ -1,33 +1,117 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Realm Tracker</h1>
+    <h1>Realm Tracker</h1>
+
+    <div>
+        <div class="form-check form-switch float-end">
+            <input (click)="realmsService.toggleEvents()" [(ngModel)]="realmsService.eventsEnabled"
+                class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Auto Refresh</label>
+        </div>
+        <br>
+        <p *ngIf="realmsService.lastRefreshTime" ngbTooltip="{{realmsService.lastRefreshTime.toRelative()}}" class="float-end"
+            style="margin: 0px 0px 0px 1em">Last Updated:
+            {{realmsService.lastRefreshTime.toLocaleString()}}</p>
+    </div>
+
 </div>
 
-<!-- Filter here -->
-
-<div class="table-responsive">
-    <table class="table table-striped table-sm">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Server</th>
-                <th>Players</th>
-                <th>heroesLeft</th>
-                <th>openedTime</th>
-                <th>updatedTime</th>
-                <th>ip</th>
-            </tr>
-        </thead>
-
-        <tbody *ngFor="let realm of realms">
-            <tr>
-                <td>{{realm.name}}</td>
-                <td>{{realm.server.name}}</td>
-                <td>{{realm.players}} / {{realm.maxPlayers}} {{realm.queue > 0 ? " (+" + realm.queue + ")" : ""}}</td>
-                <td>{{realm.heroesLeft}}</td>
-                <td>{{realm.openedTime}}</td>
-                <td>{{realm.updatedTime}}</td>
-                <td>{{realm.ip}}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>Filter</h2>
 </div>
+
+<div class="form-check">
+    <input (click)="realmsService.groupRealms()" [(ngModel)]="realmsService.groupByServer" class="form-check-input" type="checkbox" value=""
+        id="groupByServer">
+    <label class="form-check-label" for="groupByServer">
+        Group by Server
+    </label>
+</div>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>Realm List</h2>
+
+    <div class="btn-group mr-3">
+        <div class="btn-group" ngbDropdown role="group" aria-label="dropdownOrderBy">
+            <button class="btn btn-outline-primary" id="dropdownOrderBy" ngbDropdownToggle>Order By
+                ({{realmsService.realmsOrder}})</button>
+            <div class="dropdown-menu" ngbDropdownMenu>
+                <button ngbDropdownItem *ngFor="let enum of RealmOrder | keyvalue: utilService.sortOriginal"
+                    (click)="realmsService.sortRealms(RealmOrder[enum.key])">{{enum.value}}</button>
+            </div>
+        </div>
+        <div class="btn-group" ngbDropdown role="group" aria-label="dropdownOrderBy">
+            <button class="btn btn-outline-success" ngbDropdownToggle>{{realmsService.sortOrder == "Ascending" ?
+                "Ascending" : "Descending"}}</button>
+            <div class="dropdown-menu" ngbDropdownMenu>
+                <button (click)="realmsService.swapOrder()" ngbDropdownItem>{{realmsService.sortOrder == "Ascending" ?
+                    "Descending" : "Ascending"}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Group By Server -->
+<ng-container *ngIf="realmsService.groupByServer">
+    <div *ngFor="let realmGroup of realmsService.groupedRealms | keyvalue: realmsService.groupedRealmSort">
+        <h1>{{realmGroup.key}}</h1>
+        <ng-template [ngTemplateOutlet]="realmlist" [ngTemplateOutletContext]="{realms:realmGroup.value}"></ng-template>
+        <br>
+    </div>
+</ng-container>
+
+<!-- No Grouping -->
+<ng-container *ngIf="!realmsService.groupByServer">
+    <ng-template *ngIf="!realmsService.groupByServer" [ngTemplateOutlet]="realmlist" [ngTemplateOutletContext]="{realms:realmsService.realms}"></ng-template>
+</ng-container>
+
+<!-- Realm List Template -->
+<ng-template #realmlist let-realms="realms">
+    <div class="realm-list">
+        <h4 *ngIf="realms.length == 0">No Realms!</h4>
+        <div *ngFor="let realm of realms" class="realm">
+            <figure class="realm-image">
+                <img src="/assets/rotmg/dungeons/Oyrx's_Castle.png" alt="{{realm.server.name}} {{realm.name}}">
+                <figcaption>
+                    <!-- Has IP -->
+                    <ng-container *ngIf="realm.ip">
+                        <a ngbTooltip="Copied!" triggers="click:blur" role="button" [copy-clipboard]="realm.ip">Copy IP
+                            <i class="far fa-clipboard"></i>
+                        </a>
+                    </ng-container>
+                    <!-- No IP -->
+                    <ng-container *ngIf="!realm.ip">
+                        <p>Unknown IP</p>
+                    </ng-container>
+                </figcaption>
+            </figure>
+            <div class="realm-info">
+                <div>
+                    <p class="supertext">Server</p>
+                    <p>{{realm.server.name}}</p>
+                </div>
+                <div>
+                    <p class="supertext">Name</p>
+                    <p>{{realm.name}}</p>
+                </div>
+                <div>
+                    <p class="supertext">Players</p>
+                    <p>{{realmsService.parsePlayersStr(realm)}}</p>
+                </div>
+                <div>
+                    <p class="supertext">Events Left</p>
+                    <p>{{realm.heroesLeft ? realm.heroesLeft : "??"}} Events</p>
+                </div>
+                <div>
+                    <p class="supertext">Opened</p>
+                    <p ngbTooltip="{{utilService.formatTime(realm.openedTime, false)}}">
+                        {{utilService.formatTime(realm.openedTime, true).replace(' ago', '')}}</p>
+                </div>
+                <div>
+                    <p class="supertext">Last Updated</p>
+                    <p ngbTooltip="{{utilService.formatTime(realm.updatedTime, true)}}">
+                        {{utilService.formatTime(realm.updatedTime, false)}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,8 +1,10 @@
-import { Component, ComponentFactoryResolver, OnInit } from "@angular/core";
-import { IRealm } from "../../../../../../types/src";
-import { ENVIRONMENT } from "../../../../../environments/environment";
-import { ACCESS_TOKEN_KEY } from "../../../auth/auth.service";
+import { KeyValue } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { SortOrder } from "../../../../models/sort-order";
+import { UtilService } from "../../../../util.service";
+import { RealmOrder } from "./models/realms-order";
 import { RealmsService } from "./realms.service";
+import { Servers } from "@realmsense/types";
 
 @Component({
     selector: "app-realms",
@@ -11,18 +13,18 @@ import { RealmsService } from "./realms.service";
 })
 export class RealmsComponent implements OnInit {
 
-    public realms: IRealm[] = [];
-
-    // TODO: add option to toggle SSE events
-
+    // Imports
+    public RealmOrder = RealmOrder;
+    public SortOrder = SortOrder;
+    public Servers = Servers
+    
     constructor(
-        private realmsService: RealmsService
+        public realmsService: RealmsService,
+        public utilService: UtilService
     ) { }
 
     public ngOnInit(): void {
-        this.realmsService.getRealms()
-            .subscribe((realms) => this.realms = realms);
-
+        this.realmsService.getRealms().subscribe();
         this.realmsService.listenForEvents();
     }
 }
