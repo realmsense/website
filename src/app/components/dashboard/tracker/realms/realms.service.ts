@@ -35,9 +35,16 @@ export class RealmsService {
         realms.subscribe((realms) => {
             this.realms = realms;
             this.lastRefreshTime = DateTime.now();
-            this.sortRealms();
+            this.updateRealms();
         });
         return realms;
+    }
+
+    public updateRealms(): void {
+        this.sortRealms();
+        if (this.groupByServer) {
+            this.groupRealms();
+        }
     }
 
     public swapOrder(): void {
@@ -46,7 +53,7 @@ export class RealmsService {
         } else {
             this.sortOrder = SortOrder.Ascending;
         }
-        this.sortRealms();
+        this.updateRealms();
     }
 
     public groupRealms(): void {
@@ -169,7 +176,7 @@ export class RealmsService {
             }
         }
 
-        this.sortRealms();
+        this.updateRealms();
         this.lastRefreshTime = DateTime.now();
     }
 
