@@ -22,6 +22,7 @@
             "es2018",
             "dom"
         ],
+        "preserveSymlinks": true,
         "paths": {
             "*": ["*"],
             "@realmsense/types": ["./types/src"]
