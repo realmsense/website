@@ -9,7 +9,7 @@ import { AuthService } from "src/app/components/auth/auth.service";
 export class HeaderComponent implements OnInit {
 
     @Input()
-    public title: string;
+    public headerTitle: string;
 
     constructor(public authService: AuthService) { }
 
