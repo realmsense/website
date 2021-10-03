@@ -1,0 +1,104 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1>Player Tracker</h1>
+</div>
+
+<!-- Search Players -->
+<div class="input-group mb-3">
+    <form class="form-inline my-2 my-lg-0 d-flex" autocomplete="off">
+        <input #searchInput [(ngModel)]="searchName" name="playerName" class="form-control mr-sm-2" type="search"
+            placeholder="Search Players" aria-label="Search">
+        <!-- <button (click)="searchPlayer()" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+    </form>
+</div>
+
+<p *ngIf="searching">Searching...</p>
+<p *ngIf="!searching && searchResults.length == 0 && searchName">No Results!</p>
+<ng-template *ngIf="!searching && searchResults.length > 0" [ngTemplateOutlet]="playerlist" [ngTemplateOutletContext]="{players: searchResults, addToWatchlist: true}"></ng-template>
+
+<br>
+
+<!-- Watch List -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>Watch List</h2>
+
+    <div>
+        <div class="form-check form-switch float-end">
+            <input (click)="null" [(ngModel)]="watchListUpdates" class="form-check-input" type="checkbox"
+                id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Auto Refresh</label>
+        </div>
+    </div>
+</div>
+
+<ng-template [ngTemplateOutlet]="playerlist" [ngTemplateOutletContext]="{players: watchList, addToWatchlist: false}"></ng-template>
+
+<!-- Player List template -->
+<ng-template #playerlist let-players="players" let-addToList="addToWatchlist">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Location</th>
+                <th scope="col">Class</th>
+                <th scope="col">Inventory</th>
+                <th scope="col">Updated Time</th>
+                <th scope="col">Watch List</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let player of players; let i = index" [attr.data-index]="i">
+                <th scope="row">{{i}}</th>
+                <td>{{player.name}}</td>
+                <td>
+                    <a ngbTooltip="IP Copied" triggers="click:blur" role="button"
+                        [copy-clipboard]="player.server.address">{{player.server.name}} {{player.location}}
+                        <i class="far fa-clipboard"></i>
+                    </a>
+                </td>
+                <td>{{Classes[player.objectType]}}</td>
+                <td>inv: {{player.inventory}} <br>backpack: {{player.backpack}} <br> pots: {{player.potions}}</td>
+
+                <!-- <td ngbTooltip="{{utilService.formatTime(player.updatedTime, false)}}"> -->
+                <td>
+                    {{utilService.formatTime(player.updatedTime, true)}}
+
+                <td *ngIf="addToList">
+                    <i (click)="addToWatchlist(player)" ngbTooltip="Add to Watch List" class="fas fa-plus-circle"></i>
+                </td>
+                <td *ngIf="!addToList">
+                    <i (click)="removeFromWatchlist(player)" ngbTooltip="Remove from Watch List" class="fas fa-minus-circle"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<div class="inventory">
+
+    <!-- <ng-template [ngTemplateOutlet]="invgroup" [ngTemplateOutletContext]="{name:'Equipment', items: Array(4)}"></ng-template>
+    <ng-template [ngTemplateOutlet]="invgroup" [ngTemplateOutletContext]="{name:'Inventory', items: Array(8)}"></ng-template>
+    <ng-template [ngTemplateOutlet]="invgroup" [ngTemplateOutletContext]="{name:'Backpack', items: Array(8)}"></ng-template> -->
+
+    <!-- <div class="inventory-group">
+        <p>Equipment</p>
+        <div class="item-list">
+            <div *ngFor="let i of [].constructor(4)">
+                <img src="https://i.imgur.com/y0Svuxi.png">
+            </div>
+        </div>
+    </div> -->
+
+</div>
+
+<ng-template #invgroup let-name="name" let-items="items">
+    <div class="inventory-group">
+        <p>{{name}}</p>
+        <div class="item-list">
+            <div *ngFor="let item of items">
+                <!-- <img alt="{{item.name}}" src="{{item.image}}"> -->
+                <img src="https://i.imgur.com/y0Svuxi.png">
+            </div>
+        </div>
+    </div>
+</ng-template>

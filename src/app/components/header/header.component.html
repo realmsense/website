@@ -41,6 +41,14 @@
                     </li>
                 </ul>
 
+                <ul *ngIf="authService.isCustomer()" class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/tracker/players">
+                            Players
+                        </a>
+                    </li>
+                </ul>
+
                 <!-- Admin -->
                 <h6 *ngIf="authService.isAdmin()" class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>Admin</span>

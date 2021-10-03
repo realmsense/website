@@ -1,0 +1,28 @@
+i {
+    cursor: pointer;
+}
+
+#player-search {
+    max-width: 20em;
+}
+
+.inventory {
+
+    display: flex;
+    flex-wrap: wrap;
+    width: 50em;
+
+    .item-list {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 20em;
+        margin-right: 5em;
+
+        div {
+            padding: 0.5em;
+            margin: 0.5em;
+            border-radius: 25%;
+            box-shadow: 3px 4px 7px 0px rgba(0, 0, 0, 0.2)
+        }
+    }
+}

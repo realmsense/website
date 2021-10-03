@@ -5,6 +5,7 @@ import { BuildsComponent } from "./components/dashboard/admin/builds/builds.comp
 import { UsersComponent } from "./components/dashboard/admin/users/users.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { RealmsComponent } from "./components/dashboard/tracker/realms/realms.component";
+import { PlayersComponent } from "./components/dashboard/tracker/players/players.component";
 import { HomeComponent } from "./components/home/home.component";
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
             { path: "admin/builds", component: BuildsComponent },
             { path: "admin/users", component: UsersComponent },
             { path: "tracker/realms", component: RealmsComponent },
+            { path: "tracker/players", component: PlayersComponent },
         ]
     }
 ];
