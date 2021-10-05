@@ -1,25 +1,5 @@
-.content-header {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-
-    padding: 1rem 0 0 0;
-    margin-bottom: 1em;
-}
-
 .custom-control-label {
     font-weight: 500 !important;
-}
-
-.auto-refresh {
-    .custom-control-label {
-        float: right;
-    }
-
-    p {
-        float: right;
-    }
 }
 
 .realm-list {

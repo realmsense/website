@@ -8,7 +8,7 @@ import { map, debounceTime, distinctUntilChanged, tap, switchMap } from "rxjs/op
 @Component({
     selector: "app-players",
     templateUrl: "./players.component.html",
-    styleUrls: ["./players.component.scss"]
+    styleUrls: ["./players.component.scss", "../../dashboard.component.scss"]
 })
 export class PlayersComponent implements OnInit {
 
@@ -54,8 +54,11 @@ export class PlayersComponent implements OnInit {
     }
 
     public async addToWatchlist(player: IPlayer): Promise<void> {
-        this.searchName = "";
-        this.searchResults = [];
+        // Remove the selected player from the search results. Reset search if there are no more results.
+        this.searchResults = this.searchResults.filter((value) => value.name != player.name);
+        if (this.searchResults.length == 0) {
+            this.searchName = "";
+        }
 
         await this.playersService.addToWatchlist(player.name);
         this.watchList = await this.playersService.getWatchList();

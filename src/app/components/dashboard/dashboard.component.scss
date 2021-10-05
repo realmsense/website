@@ -11,8 +11,24 @@
     }
 }
 
-.indent-content {
-    padding-left: 0.5rem;
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+
+    // padding: 1rem 0 0 0;
+    margin-bottom: 1em;
+    
+    .auto-refresh {
+        .custom-control-label {
+            float: right;
+        }
+    
+        p {
+            float: right;
+        }
+    }
 }
 
 .content-wrapper {
@@ -21,6 +37,7 @@
 
 .content {
     padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 footer {
