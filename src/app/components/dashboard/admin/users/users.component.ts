@@ -8,7 +8,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 @Component({
     selector: "app-users",
     templateUrl: "./users.component.html",
-    styleUrls: ["./users.component.scss"]
+    styleUrls: ["./users.component.scss", "../../dashboard.component.scss"]
 })
 export class UsersComponent implements OnInit {
 

@@ -1,3 +1,27 @@
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+
+    padding: 1rem 0 0 0;
+    margin-bottom: 1em;
+}
+
+.custom-control-label {
+    font-weight: 500 !important;
+}
+
+.auto-refresh {
+    .custom-control-label {
+        float: right;
+    }
+
+    p {
+        float: right;
+    }
+}
+
 .realm-list {
     display: flex;
     // justify-content: space-evenly;
@@ -5,9 +29,9 @@
 
     .realm {
         display: flex;
-        background-color: #c3c6c9; 
+        background-color: #373e44; 
+        
         border-radius: 1em;
-    
         padding: 1em 0;
         margin: 1em 1em 1em 0;
         width: 25em;
@@ -44,14 +68,12 @@
         
             div {
                 .supertext {
-                    color: #000000d1;
                     font-family: Consolas;
                     font-size: 13px;
                 }
                 
                 p {
                     margin: 0;
-                    color: black;
                 }
             }
         }

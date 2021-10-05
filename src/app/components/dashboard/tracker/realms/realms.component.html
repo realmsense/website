@@ -1,38 +1,42 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<div class="content-header border-bottom mb-4">
     <h1>Realm Tracker</h1>
 
-    <div>
-        <div class="form-check form-switch float-end">
-            <input (click)="realmsService.toggleEvents()" [(ngModel)]="realmsService.eventsEnabled"
-                class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Auto Refresh</label>
+    <div class="auto-refresh">
+        <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" id="autoRefreshCheck"
+                [(ngModel)]="realmsService.eventsEnabled" (click)="realmsService.toggleEvents()">
+            <label for="autoRefreshCheck" class="custom-control-label">Auto Refresh</label>
         </div>
-        <br>
-        <p *ngIf="realmsService.lastRefreshTime" ngbTooltip="{{realmsService.lastRefreshTime.toRelative()}}" class="float-end"
-            style="margin: 0px 0px 0px 1em">Last Updated:
-            {{realmsService.lastRefreshTime.toLocaleString()}}</p>
+
+        <p *ngIf="realmsService.lastRefreshTime" ngbTooltip="{{realmsService.lastRefreshTime.toRelative()}}">
+            Last Updated: {{realmsService.lastRefreshTime.toLocaleString()}}
+        </p>
+    </div>
+</div>
+
+<div class="content">
+
+    <!-- Filter -->
+    <div class="mb-2">
+        <h3>Filter</h3>
     </div>
 
+    <div class="indent-content">
+        <div class="custom-control custom-checkbox mb-4">
+            <input class="custom-control-input" type="checkbox" id="groupByServerCheck"
+                [(ngModel)]="realmsService.groupByServer" (click)="realmsService.groupRealms()">
+            <label for="groupByServerCheck" class="custom-control-label">Group by Server</label>
+        </div>
+    </div>
 </div>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h2>Filter</h2>
-</div>
+<!-- Realm List -->
+<div class="content-header pb-2 border-bottom">
+    <h3>Realm List</h3>
 
-<div class="form-check">
-    <input (click)="realmsService.groupRealms()" [(ngModel)]="realmsService.groupByServer" class="form-check-input" type="checkbox" value=""
-        id="groupByServer">
-    <label class="form-check-label" for="groupByServer">
-        Group by Server
-    </label>
-</div>
-
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h2>Realm List</h2>
-
-    <div class="btn-group mr-3">
+    <div class="btn-group">
         <div class="btn-group" ngbDropdown role="group" aria-label="dropdownOrderBy">
-            <button class="btn btn-outline-primary" id="dropdownOrderBy" ngbDropdownToggle>Order By
+            <button class="btn btn-primary" id="dropdownOrderBy" ngbDropdownToggle>Order By
                 ({{realmsService.realmsOrder}})</button>
             <div class="dropdown-menu" ngbDropdownMenu>
                 <button ngbDropdownItem *ngFor="let enum of RealmOrder | keyvalue: utilService.sortOriginal"
@@ -40,29 +44,36 @@
             </div>
         </div>
         <div class="btn-group" ngbDropdown role="group" aria-label="dropdownOrderBy">
-            <button class="btn btn-outline-success" ngbDropdownToggle>{{realmsService.sortOrder == "Ascending" ?
+            <button class="btn btn-success" ngbDropdownToggle>{{realmsService.sortOrder == "Ascending" ?
                 "Ascending" : "Descending"}}</button>
             <div class="dropdown-menu" ngbDropdownMenu>
-                <button (click)="realmsService.swapOrder()" ngbDropdownItem>{{realmsService.sortOrder == "Ascending" ?
+                <button (click)="realmsService.swapOrder()" ngbDropdownItem>{{realmsService.sortOrder == "Ascending"
+                    ?
                     "Descending" : "Ascending"}}</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Group By Server -->
-<ng-container *ngIf="realmsService.groupByServer">
-    <div *ngFor="let realmGroup of realmsService.groupedRealms | keyvalue: realmsService.groupedRealmSort">
-        <h1>{{realmGroup.key}}</h1>
-        <ng-template [ngTemplateOutlet]="realmlist" [ngTemplateOutletContext]="{realms:realmGroup.value}"></ng-template>
-        <br>
-    </div>
-</ng-container>
+<div class="content">
+    <div class="indent-content">
+        <!-- Group By Server -->
+        <ng-container *ngIf="realmsService.groupByServer">
+            <div *ngFor="let realmGroup of realmsService.groupedRealms | keyvalue: realmsService.groupedRealmSort">
+                <h3>{{realmGroup.key}}</h3>
+                <ng-template [ngTemplateOutlet]="realmlist" [ngTemplateOutletContext]="{realms:realmGroup.value}">
+                </ng-template>
+                <br>
+            </div>
+        </ng-container>
 
-<!-- No Grouping -->
-<ng-container *ngIf="!realmsService.groupByServer">
-    <ng-template *ngIf="!realmsService.groupByServer" [ngTemplateOutlet]="realmlist" [ngTemplateOutletContext]="{realms:realmsService.realms}"></ng-template>
-</ng-container>
+        <!-- No Grouping -->
+        <ng-container *ngIf="!realmsService.groupByServer">
+            <ng-template *ngIf="!realmsService.groupByServer" [ngTemplateOutlet]="realmlist"
+                [ngTemplateOutletContext]="{realms:realmsService.realms}"></ng-template>
+        </ng-container>
+    </div>
+</div>
 
 <!-- Realm List Template -->
 <ng-template #realmlist let-realms="realms">

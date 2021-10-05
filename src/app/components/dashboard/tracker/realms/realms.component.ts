@@ -9,7 +9,7 @@ import { Servers } from "@realmsense/types";
 @Component({
     selector: "app-realms",
     templateUrl: "./realms.component.html",
-    styleUrls: ["./realms.component.scss"]
+    styleUrls: ["./realms.component.scss", "../../dashboard.component.scss"]
 })
 export class RealmsComponent implements OnInit {
 
