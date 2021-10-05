@@ -76,8 +76,8 @@ const menuList: MenuItem[] = [
     {
         header: "Tracker",
         children: [
-            { name: "Realms", link: "/dashboard/tracker/realms", icon: "fab fa-accessible-icon" },
-            { name: "Players", link: "/dashboard/tracker/players", icon: "fas fa-poo" },
+            { name: "Realms", link: "/dashboard/tracker/realms", icon: "fas fa-poo" },
+            { name: "Players", link: "/dashboard/tracker/players", icon: "fab fa-accessible-icon" },
         ],
     },
     {
@@ -87,4 +87,4 @@ const menuList: MenuItem[] = [
             { name: "Users", link: "/dashboard/admin/users", icon: "fas fa-users-cog" },
         ],
     }
-]
+];

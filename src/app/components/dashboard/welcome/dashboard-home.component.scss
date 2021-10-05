@@ -1,3 +1,58 @@
 .content-header {
     padding: 1rem 0;
 }
+
+.stat-card {
+    background-color: #343a40;
+    display: flex;
+    max-width: 30rem;
+
+    &, .icon, .arrow {
+        border-radius: 0.25rem;
+    }
+
+    .icon, .content {
+        margin: 0.5rem;
+    }
+
+    .icon {
+        width: 70px;
+        font-size: 2rem;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+
+        span:nth-child(1) {
+            font-size: 1.65rem;
+        }
+    }
+
+    .arrow {
+        margin-left: auto;
+        background-color: #515a64;
+        padding: 0 0.55rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+            color: white;
+        }
+
+        transition: padding 0.1s ease-out;
+    }
+
+    &:hover {
+        cursor: pointer;
+        .arrow {
+            padding: 0 0.7rem;
+        }
+    }
+}
