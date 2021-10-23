@@ -1,0 +1,107 @@
+<div class="content-header border-bottom mb-4">
+    <h1>Player Tracker</h1>
+</div>
+
+<div class="content">
+
+    <div id="player-search" class="container-fluid">
+        <h2>Search Player</h2>
+        <div class="row">
+            <div id="player-search" class="col-md-8 offset-md-2">
+                <form autocomplete="off">
+                    <input #searchInput [(ngModel)]="searchName" name="playerName" type="search"
+                        class="form-control form-control-lg" placeholder="Player Name">
+                </form>
+            </div>
+        </div>
+
+        <h4 *ngIf="searching">Searching...</h4>
+        <h4 *ngIf="!searching && searchResults.length == 0 && searchName">No Results!</h4>
+
+        <ng-template *ngIf="!searching && searchResults.length > 0" [ngTemplateOutlet]="playerlist"
+            [ngTemplateOutletContext]="{players: searchResults, tableName: 'Search Results', addToWatchlist: true}">
+        </ng-template>
+    </div>
+</div>
+
+<div class="content-header border-bottom mt-5 mb-4">
+    <h1>Watch List</h1>
+
+    <div class="auto-refresh">
+        <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" id="autoRefreshCheck" [(ngModel)]="watchListUpdates"
+                (click)="null">
+            <label for="autoRefreshCheck" class="custom-control-label">Auto Refresh</label>
+        </div>
+
+        <!-- <p *ngIf="realmsService.lastRefreshTime" ngbTooltip="{{realmsService.lastRefreshTime.toRelative()}}">
+            Last Updated: {{realmsService.lastRefreshTime.toLocaleString()}}
+        </p> -->
+    </div>
+</div>
+
+<div class="content">
+    <ng-template [ngTemplateOutlet]="playerlist"
+        [ngTemplateOutletContext]="{players: watchList, tableName: 'Watch List', addToWatchlist: false}"></ng-template>
+</div>
+
+<!-- Player List Template -->
+<ng-template #playerlist let-players="players" let-tableName="tableName" let-addToList="addToWatchlist">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">{{tableName}}</h3>
+            <!-- <div class="card-tools">
+                <ul class="pagination pagination-sm float-right">
+                    <li class="page-item"><a class="page-link" href="#">«</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">»</a></li>
+                </ul>
+            </div> -->
+        </div>
+
+        <div class="card-body p-0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Class</th>
+                        <th>Inventory</th>
+                        <th>Updated Time</th>
+                        <th>Watch List</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let player of players; let i = index" [attr.data-index]="i">
+                        <td>{{i}}</td>
+                        <td>{{player.name}}</td>
+                        <td>
+                            <a ngbTooltip="IP Copied" triggers="click:blur" role="button"
+                                [copy-clipboard]="player.server.address">{{player.server.name}} {{player.location}}
+                                <i class="far fa-clipboard"></i>
+                            </a>
+                        </td>
+                        <td>{{Classes[player.objectType]}}</td>
+                        <td>inv: {{player.inventory}} <br>backpack: {{player.backpack}} <br> pots: {{player.potions}}
+                        </td>
+
+                        <td>{{utilService.formatTime(player.updatedTime, true)}}</td>
+
+                        <td *ngIf="addToList">
+                            <i (click)="addToWatchlist(player)" ngbTooltip="Add to Watch List"
+                                class="fas fa-plus-circle"></i>
+                        </td>
+
+                        <td *ngIf="!addToList">
+                            <i (click)="removeFromWatchlist(player)" ngbTooltip="Remove from Watch List"
+                                class="fas fa-minus-circle"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ng-template>

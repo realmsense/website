@@ -1,0 +1,16 @@
+<div class="modal" tabindex="-1" role="dialog" [style.display]="isHidden? 'none': 'block'">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{title}}</h5>
+                <button (click)="hide()" type="button" class="close btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>{{content}}</p>
+            </div>
+            <div class="modal-footer">
+                <button (click)="hide()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

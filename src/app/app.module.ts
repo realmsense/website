@@ -4,19 +4,19 @@ import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { AuthInterceptor } from "./components/auth/auth.interceptor";
-import { HttpErrorInterceptor } from "./components/auth/http-error.interceptor";
-import { LoginComponent } from "./components/auth/login/login.component";
-import { ErrorModalComponent } from "./components/error-modal/error-modal.component";
-import { HomeComponent } from "./components/home/home.component";
-import { DashboardComponent } from "./components/dashboard/dashboard.component";
-import { BuildsComponent } from "./components/dashboard/admin/builds/builds.component";
-import { UsersComponent } from "./components/dashboard/admin/users/users.component";
-import { RealmsComponent } from "./components/dashboard/tracker/realms/realms.component";
+import { AuthInterceptor } from "./pages/auth/auth.interceptor";
+import { HttpErrorInterceptor } from "./pages/auth/http-error.interceptor";
+import { LoginComponent } from "./pages/auth/login/login.component";
+import { ErrorModalComponent } from "./pages/error-modal/error-modal.component";
+import { HomeComponent } from "./pages/home/home.component";
+import { DashboardComponent } from "./pages/dashboard/dashboard.component";
+import { BuildsComponent } from "./pages/dashboard/admin/builds/builds.component";
+import { UsersComponent } from "./pages/dashboard/admin/users/users.component";
+import { RealmsComponent } from "./pages/dashboard/tracker/realms/realms.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CopyClipboardDirective } from "./directives/copy-clipboard-directive";
-import { PlayersComponent } from "./components/dashboard/tracker/players/players.component";
-import { DashboardHomeComponent } from "./components/dashboard/welcome/dashboard-home.component";
+import { PlayersComponent } from "./pages/dashboard/tracker/players/players.component";
+import { DashboardHomeComponent } from "./pages/dashboard/welcome/dashboard-home.component";
 
 @NgModule({
     declarations: [

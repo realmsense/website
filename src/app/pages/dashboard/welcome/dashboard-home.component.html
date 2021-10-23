@@ -1,0 +1,23 @@
+<div class="content-header">
+    <h1>Welcome {{authService.user.username}}!</h1>
+</div>
+
+<div class="content">
+    <!-- Stats -->
+    <div class="row">
+        <div *ngFor="let stat of stats" routerLink="{{stat.link}}" class="col-12 col-sm-6 col-md-3">
+            <div class="stat-card">
+                <div class="icon {{stat.color}}">
+                    <i class="{{stat.icon}}"></i>
+                </div>
+                <div class="content">
+                    <span>{{stat.name}}</span>
+                    <span><strong>{{stat.value}}</strong> {{stat.sub}}</span>
+                </div>
+                <a class="arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
