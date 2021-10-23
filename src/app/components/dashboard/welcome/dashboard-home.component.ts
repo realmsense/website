@@ -4,7 +4,7 @@ import { AuthService } from "../../auth/auth.service";
 @Component({
     selector: "app-dashboard-home",
     templateUrl: "./dashboard-home.component.html",
-    styleUrls: ["./dashboard-home.component.scss"]
+    styleUrls: ["./dashboard-home.component.scss", "../dashboard.component.scss"]
 })
 export class DashboardHomeComponent implements OnInit {
 

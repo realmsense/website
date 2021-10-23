@@ -1,19 +1,40 @@
 {
-	"version": "2.0.0",
-	"tasks": [
+    "version": "2.0.0",
+    "tasks": [
         {
-            "label": "Build watch",
+            "label": "Build Watch",
             "type": "shell",
             "command": "npm",
-            "args": [ "run", "start"],
+            "args": [
+                "run",
+                "start"
+            ],
             "isBackground": true,
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": [
-                "$tsc-watch"
-            ]
+            "problemMatcher": {
+                // Adapted from https://github.com/microsoft/vscode/blob/1bfac7ce8b91b434c3a533a6b5be9adfe68f3ad3/extensions/typescript-language-features/package.json#L1302
+                "pattern": {
+                    "regexp": "^Error: ([^\\s].*)[\\(:](\\d+)[,:](\\d+)(?:\\):\\s+|\\s+-\\s+)(error|warning|info)\\s+TS(\\d+)\\s*:\\s*(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "code": 5,
+                    "message": 6
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": {
+                        "regexp": "^Build at: .* Hash: \\w{20} - Time: \\d+ms$"
+                    },
+                    "endsPattern": {
+                        "regexp": "Compiled successfully\\.$|Failed to compile\\.$"
+                    }
+                }
+            }
         }
     ]
 }

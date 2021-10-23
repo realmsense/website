@@ -1,8 +1,8 @@
 import { Component, OnInit, Renderer2 } from "@angular/core";
 import { Router } from "@angular/router";
 import { DateTime } from "luxon";
-import { AuthService } from "src/app/components/auth/auth.service";
 import packageInfo from "../../../../package.json";
+import { AuthService } from "../auth/auth.service";
 
 @Component({
     selector: "app-admin",
@@ -68,7 +68,7 @@ const menuList: MenuItem[] = [
     {
         header: null,
         children: [
-            { name: "Home", link: "/home", icon: "fas fa-home" },
+            { name: "Home", link: "/dashboard", icon: "fas fa-home" },
             { name: "Download", link: "/download", icon: "fas fa-download" },
             { name: "Subscription", link: "/subscription", icon: "fas fa-dollar-sign" },
         ],

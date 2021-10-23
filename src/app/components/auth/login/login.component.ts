@@ -1,10 +1,10 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable, throwError } from "rxjs";
+import { throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { AccessToken } from "src/app/components/auth/models/accesstoken.model";
-import { AuthService } from "src/app/components/auth/auth.service";
+import { AuthService } from "../auth.service";
+import { AccessToken } from "../models";
 
 interface Alert {
     type: string;

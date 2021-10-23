@@ -11,6 +11,7 @@
             "reAttach": true,
             "url": "http://127.0.0.1:4200/",
             "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Build Watch"
         }
     ]
 }
