@@ -1,0 +1,87 @@
+<br>
+<div class="content">
+
+    <div class="profile-wrapper">
+
+        <div id="details">
+            <!-- User Details -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Details</h3>
+                </div>
+
+                <form class="form-horizontal" data-bitwarden-watching="1">
+                    <div class="card-body">
+                        <ng-template #cardentry let-name="name" let-value="value">
+                            <div class="form-group row">
+                                <label for="username" class="col-sm-2 col-form-label">{{name}}</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="username" value={{value}} disabled>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template [ngTemplateOutlet]="cardentry"
+                            [ngTemplateOutletContext]="{name: 'Username', value: this.user.username}"> </ng-template>
+                        <ng-template [ngTemplateOutlet]="cardentry"
+                            [ngTemplateOutletContext]="{name: 'Email', value: this.user.email}"> </ng-template>
+                        <ng-template [ngTemplateOutlet]="cardentry"
+                            [ngTemplateOutletContext]="{name: 'Created', value: this.user.createdAt}"> </ng-template>
+                        <ng-template [ngTemplateOutlet]="cardentry"
+                            [ngTemplateOutletContext]="{name: 'Permissions', value: this.user.permissions}">
+                        </ng-template>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Change Password -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Change Password</h3>
+                </div>
+
+                <form class="form-horizontal" data-bitwarden-watching="1">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="old-password" class="col-sm-2 col-form-label">Old Password</label>
+                            <div class="col-sm-10">
+                                <input [(ngModel)]="oldPassword" name="oldPassword" type="password" class="form-control" id="old-password" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="new-password" class="col-sm-2 col-form-label">New Password</label>
+                            <div class="col-sm-10">
+                                <input [(ngModel)]="newPassword" name="newPassword" type="password" class="form-control" id="new-password" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="repeat-password" class="col-sm-2 col-form-label">Repeat Password</label>
+                            <div class="col-sm-10">
+                                <input [(ngModel)]="repeatPassword" name="repeatPassword" type="password" class="form-control" id="repeat-password" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button (click)="authService.changePassword(this.oldPassword, this.newPassword, this.repeatPassword)" type="submit" class="btn btn-info">Change Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="cards">
+
+            <app-card name="UID"
+                color="bg-info" link="" sub="" icon="fab fa-accessible-icon"
+                value="# 2">
+            </app-card>
+
+            <app-card name="Subscription"
+                color="bg-info" link="/dashboard/subscription" sub="No active subscription!" icon="fab fa-accessible-icon"
+                value="">
+            </app-card>
+
+        </div>
+
+    </div>
+</div>

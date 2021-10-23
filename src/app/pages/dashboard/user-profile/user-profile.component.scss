@@ -1,0 +1,13 @@
+.profile-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    #details {
+        grid-column: span 2;
+    }
+
+    #cards {
+        padding-left: 1rem;
+    }
+
+}

@@ -8,6 +8,7 @@ import { RealmsComponent } from "./pages/dashboard/tracker/realms/realms.compone
 import { PlayersComponent } from "./pages/dashboard/tracker/players/players.component";
 import { DashboardHomeComponent } from "./pages/dashboard/welcome/dashboard-home.component";
 import { HomeComponent } from "./pages/home/home.component";
+import { UserProfileComponent } from "./pages/dashboard/user-profile/user-profile.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
@@ -17,6 +18,7 @@ const routes: Routes = [
         path: "dashboard", component: DashboardComponent,
         children: [
             { path: "", component: DashboardHomeComponent },
+            { path: "profile", component: UserProfileComponent },
             { path: "admin/builds", component: BuildsComponent },
             { path: "admin/users", component: UsersComponent },
             { path: "tracker/realms", component: RealmsComponent },

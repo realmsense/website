@@ -17,6 +17,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CopyClipboardDirective } from "./directives/copy-clipboard-directive";
 import { PlayersComponent } from "./pages/dashboard/tracker/players/players.component";
 import { DashboardHomeComponent } from "./pages/dashboard/welcome/dashboard-home.component";
+import { UserProfileComponent } from "./pages/dashboard/user-profile/user-profile.component";
 import { CardsComponent } from "./components/card/card.component";
 
 @NgModule({
@@ -25,6 +26,7 @@ import { CardsComponent } from "./components/card/card.component";
         HomeComponent,
         DashboardComponent,
         DashboardHomeComponent,
+        UserProfileComponent,
         BuildsComponent,
         LoginComponent,
         UsersComponent,

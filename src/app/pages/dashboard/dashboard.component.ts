@@ -48,11 +48,6 @@ export class DashboardComponent implements OnInit {
             this.renderer.addClass(appRoot, "sidebar-open");
         }
     }
-
-    public logout(): void {
-        this.authService.logout();
-        window.location.reload(); // admin component automatically redirects if not logged in
-    }
 }
 
 interface MenuItem {
