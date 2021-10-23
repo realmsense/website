@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Card } from "../../../components/card/card.interface";
 import { AuthService } from "../../auth/auth.service";
 
 @Component({
@@ -18,16 +19,7 @@ export class DashboardHomeComponent implements OnInit {
     }
 }
 
-interface Stat {
-    name: string;
-    color: "bg-primary" | "bg-secondary" | "bg-success" | "bg-info" | "bg-warning" | "bg-danger" | "bg-dark",
-    link: string,
-    sub: string;
-    icon: string;
-    value: number | string;
-}
-
-const stats: Stat[] = [
+const stats: Card[] = [
     {
         name: "Players",
         color: "bg-info",

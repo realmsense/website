@@ -1,0 +1,12 @@
+<div class="stat-card {{this.link == '' ? '' : 'link'}}">
+    <div class="icon {{this.color}}">
+        <i class="{{this.icon}}"></i>
+    </div>
+    <div class="content">
+        <span>{{this.name}}</span>
+        <span><strong>{{this.value}}</strong> {{this.sub}}</span>
+    </div>
+    <a class="arrow" *ngIf="this.link != ''">
+        <i class="fas fa-chevron-right"></i>
+    </a>
+</div>
