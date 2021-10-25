@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { APIUser } from "discord-api-types/v9";
 import { IUser } from "../../../../../shared/src";
-import { ENVIRONMENT } from "../../../../environments/environment";
+import { ENV } from "../../../../../shared/src/constants/environment/environment";
 import { DiscordService } from "../../../services/discord.service";
 import { UtilService } from "../../../services/util.service";
 import { AuthService } from "../../auth/auth.service";
@@ -16,7 +16,7 @@ export class UserProfileComponent implements OnInit {
 
     // Imports
     public userDetails = userDetails;
-    public API_URL = ENVIRONMENT.API_URL;
+    public API_URL = ENV.URL.API;
 
     public user: IUser;
     public discordUser: APIUser;

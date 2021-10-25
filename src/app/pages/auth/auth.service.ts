@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { IUser, Permission } from "../../../../shared/src";
-import { ENVIRONMENT } from "../../../environments/environment";
+import { ENV } from "../../../../shared/src/constants/environment/environment";
 import { ErrorModalComponent } from "../error-modal/error-modal.component";
 import { AccessToken } from "./models/accesstoken.model";
 
@@ -27,13 +27,13 @@ export class AuthService {
     }
 
     public login(username: string, password: string): Observable<AccessToken> {
-        const req = this.httpClient.post<AccessToken>(ENVIRONMENT.API_URL + "/auth/login", { username, password });
+        const req = this.httpClient.post<AccessToken>(ENV.URL.API + "/auth/login", { username, password });
         req.subscribe(this.handleLogin.bind(this));
         return req;
     }
 
     public reloadUser(): Observable<IUser> {
-        const user = this.httpClient.get<IUser>(ENVIRONMENT.API_URL + "/user/profile");
+        const user = this.httpClient.get<IUser>(ENV.URL.API + "/user/profile");
         user.subscribe((user) => localStorage.setItem(USER_KEY, JSON.stringify(user)));
         return user;
     }
@@ -61,7 +61,7 @@ export class AuthService {
             return;
         }
 
-        this.httpClient.post<boolean>(ENVIRONMENT.API_URL + "/auth/changePassword", { oldPassword, newPassword })
+        this.httpClient.post<boolean>(ENV.URL.API + "/auth/changePassword", { oldPassword, newPassword })
             .subscribe((success) => {
 
                 if (!success) {

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { ENVIRONMENT } from "../../../../../environments/environment";
+import { ENV } from "../../../../../../shared/src/constants/environment/environment";
 import { AuthService } from "../../../auth/auth.service";
 
 @Component({
@@ -25,7 +25,7 @@ export class LinkDiscordComponent implements OnInit {
 
         const code = this.route.snapshot.queryParams["code"];
 
-        const request = this.httpClient.post(ENVIRONMENT.API_URL + "/user/link-discord", { code }).toPromise();
+        const request = this.httpClient.post(ENV.URL.API + "/user/link-discord", { code }).toPromise();
         request.then(() => {
             this.content = "Successfully linked your Discord account!";
         });

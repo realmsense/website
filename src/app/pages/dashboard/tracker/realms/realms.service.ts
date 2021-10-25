@@ -5,7 +5,7 @@ import { EventSourcePolyfill } from "event-source-polyfill";
 import { DateTime } from "luxon";
 import { Observable } from "rxjs";
 import { IRealm, IRealmEvent, Servers } from "../../../../../../shared/src";
-import { ENVIRONMENT } from "../../../../../environments/environment";
+import { ENV } from "../../../../../../shared/src/constants/environment/environment";
 import { SortOrder } from "../../../../models/sort-order";
 import { ACCESS_TOKEN_KEY } from "../../../auth/auth.service";
 import { RealmOrder } from "./models/realms-order";
@@ -31,7 +31,7 @@ export class RealmsService {
     constructor(private httpClient: HttpClient) { }
 
     public getRealms(): Observable<IRealm[]> {
-        const realms = this.httpClient.get<IRealm[]>(ENVIRONMENT.API_URL + "/tracker/realms");
+        const realms = this.httpClient.get<IRealm[]>(ENV.URL.API + "/tracker/realms");
         realms.subscribe((realms) => {
             this.realms = realms;
             this.lastRefreshTime = DateTime.now();
@@ -132,9 +132,9 @@ export class RealmsService {
             return;
         }
 
-        // const eventSource = new EventSource(ENVIRONMENT.API_URL + "/tracker/realms/events");
+        // const eventSource = new EventSource(ENV.URL.API + "/tracker/realms/events");
         // https://stackoverflow.com/a/32440307 - To use SSE with Authentication, this pollyfill is used, as the default SSE API does not support chaning headers.
-        this.eventSource = new EventSourcePolyfill(ENVIRONMENT.API_URL + "/tracker/realms/events", {
+        this.eventSource = new EventSourcePolyfill(ENV.URL.API + "/tracker/realms/events", {
             headers: { Authorization: "Bearer " + accessToken },
         });
         this.eventSource.addEventListener("open", this.onEventConnected.bind(this));
