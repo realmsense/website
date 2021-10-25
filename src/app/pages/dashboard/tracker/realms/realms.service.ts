@@ -1,14 +1,14 @@
+import { KeyValue } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { ENVIRONMENT } from "../../../../../environments/environment";
 import { EventSourcePolyfill } from "event-source-polyfill";
-import { ACCESS_TOKEN_KEY } from "../../../auth/auth.service";
 import { DateTime } from "luxon";
-import { RealmOrder } from "./models/realms-order";
+import { Observable } from "rxjs";
+import { IRealm, IRealmEvent, Servers } from "../../../../../../shared/src";
+import { ENVIRONMENT } from "../../../../../environments/environment";
 import { SortOrder } from "../../../../models/sort-order";
-import { IRealm, IRealmEvent, Servers } from "@realmsense/types";
-import { KeyValue } from "@angular/common";
+import { ACCESS_TOKEN_KEY } from "../../../auth/auth.service";
+import { RealmOrder } from "./models/realms-order";
 
 @Injectable({
     providedIn: "root"

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { UtilService } from "../../services/util.service";
-import { Card } from "./card.interface";
 
 @Component({
     selector: "app-card",

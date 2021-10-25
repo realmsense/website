@@ -1,15 +1,15 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "./pages/auth/login/login.component";
 import { BuildsComponent } from "./pages/dashboard/admin/builds/builds.component";
 import { UsersComponent } from "./pages/dashboard/admin/users/users.component";
 import { DashboardComponent } from "./pages/dashboard/dashboard.component";
-import { RealmsComponent } from "./pages/dashboard/tracker/realms/realms.component";
 import { PlayersComponent } from "./pages/dashboard/tracker/players/players.component";
+import { RealmsComponent } from "./pages/dashboard/tracker/realms/realms.component";
+import { LinkDiscordComponent } from "./pages/dashboard/user-profile/link-discord/link-discord.component";
+import { UserProfileComponent } from "./pages/dashboard/user-profile/user-profile.component";
 import { DashboardHomeComponent } from "./pages/dashboard/welcome/dashboard-home.component";
 import { HomeComponent } from "./pages/home/home.component";
-import { UserProfileComponent } from "./pages/dashboard/user-profile/user-profile.component";
-import { LinkDiscordComponent } from "./pages/dashboard/user-profile/link-discord/link-discord.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },

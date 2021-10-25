@@ -1,10 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { IUser, Permission } from "../../../../shared/src";
 import { ENVIRONMENT } from "../../../environments/environment";
-import { AccessToken } from "./models/accesstoken.model";
-import { Permission, IUser } from "@realmsense/types";
 import { ErrorModalComponent } from "../error-modal/error-modal.component";
+import { AccessToken } from "./models/accesstoken.model";
 
 export const ACCESS_TOKEN_KEY = "access_token";
 export const EXPIRATION_KEY = "access_token_expiration";

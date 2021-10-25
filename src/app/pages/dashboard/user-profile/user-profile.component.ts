@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { UserProfileService } from "./user-profile.service";
-import { IUser } from "@realmsense/types";
-import { UtilService } from "../../../services/util.service";
-import { AuthService } from "../../auth/auth.service";
+import { APIUser } from "discord-api-types/v9";
+import { IUser } from "../../../../../shared/src";
 import { ENVIRONMENT } from "../../../../environments/environment";
 import { DiscordService } from "../../../services/discord.service";
-import { APIUser } from "discord-api-types/v9";
+import { UtilService } from "../../../services/util.service";
+import { AuthService } from "../../auth/auth.service";
+import { UserProfileService } from "./user-profile.service";
 
 @Component({
     selector: "app-user",

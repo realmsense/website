@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { IPlayer } from "@realmsense/types";
+import { IPlayer } from "../../../../../../shared/src";
 import { ENVIRONMENT } from "../../../../../environments/environment";
 
 @Injectable({

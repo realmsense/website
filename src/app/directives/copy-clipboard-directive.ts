@@ -1,5 +1,5 @@
-import { Directive, Input, Output, HostListener } from "@angular/core";
-import * as EventEmitter from "events";
+import { Directive, HostListener, Input, Output } from "@angular/core";
+import { EventEmitter } from "events";
 
 @Directive({ selector: "[copy-clipboard]" })
 export class CopyClipboardDirective {

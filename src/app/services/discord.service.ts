@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { APIUser } from "discord-api-types/v9";
-import { IDiscordLink } from "../../../types/src/api/discord-link";
+import { IDiscordLink } from "../../../shared/src/api/discord-link";
 import { AuthService } from "../pages/auth/auth.service";
 
 const DISCORD_USER_KEY = "discord_user";

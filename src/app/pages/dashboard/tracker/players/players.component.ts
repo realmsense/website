@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { PlayersService } from "./players.service";
-import { Classes, IPlayer } from "@realmsense/types";
+import { fromEvent } from "rxjs";
+import { debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
+import { Classes, IPlayer } from "../../../../../../shared/src";
 import { UtilService } from "../../../../services/util.service";
-import { fromEvent, Observable } from "rxjs";
-import { map, debounceTime, distinctUntilChanged, tap, switchMap } from "rxjs/operators";
+import { PlayersService } from "./players.service";
 
 @Component({
     selector: "app-players",

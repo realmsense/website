@@ -26,14 +26,10 @@
             "dom"
         ],
         "preserveSymlinks": true,
-        "paths": {
-            "*": ["*"],
-            "@realmsense/types": ["./types/src"]
-        }
     },
     "include": [
         "src",
-        "./types/src"
+        "./shared/src"
     ],
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,

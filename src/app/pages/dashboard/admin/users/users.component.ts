@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { UsersService } from "./users.service";
-import { Permission, IUser } from "@realmsense/types";
-import { AuthService } from "../../../auth/auth.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { IUser, Permission } from "../../../../../../shared/src";
+import { AuthService } from "../../../auth/auth.service";
+import { UsersService } from "./users.service";
 
 @Component({
     selector: "app-users",

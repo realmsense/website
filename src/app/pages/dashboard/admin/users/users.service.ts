@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
-import { IUser } from "@realmsense/types";
+import { Observable } from "rxjs";
+import { IUser } from "../../../../../../shared/src";
 import { ENVIRONMENT } from "../../../../../environments/environment";
 
 @Injectable({
