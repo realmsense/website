@@ -9,6 +9,7 @@ import { PlayersComponent } from "./pages/dashboard/tracker/players/players.comp
 import { DashboardHomeComponent } from "./pages/dashboard/welcome/dashboard-home.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { UserProfileComponent } from "./pages/dashboard/user-profile/user-profile.component";
+import { LinkDiscordComponent } from "./pages/dashboard/user-profile/link-discord/link-discord.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
@@ -19,6 +20,7 @@ const routes: Routes = [
         children: [
             { path: "", component: DashboardHomeComponent },
             { path: "profile", component: UserProfileComponent },
+            { path: "profile/link-discord", component: LinkDiscordComponent },
             { path: "admin/builds", component: BuildsComponent },
             { path: "admin/users", component: UsersComponent },
             { path: "tracker/realms", component: RealmsComponent },

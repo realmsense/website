@@ -1,8 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { UserProfileService } from "./user-profile.service";
 import { IUser } from "@realmsense/types";
-import { UtilService } from "../../../util.service";
+import { UtilService } from "../../../services/util.service";
 import { AuthService } from "../../auth/auth.service";
+import { ENVIRONMENT } from "../../../../environments/environment";
+import { DiscordService } from "../../../services/discord.service";
+import { APIUser } from "discord-api-types/v9";
 
 @Component({
     selector: "app-user",
@@ -11,8 +14,12 @@ import { AuthService } from "../../auth/auth.service";
 })
 export class UserProfileComponent implements OnInit {
 
+    // Imports
     public userDetails = userDetails;
+    public API_URL = ENVIRONMENT.API_URL;
+
     public user: IUser;
+    public discordUser: APIUser;
 
     public oldPassword: string;
     public newPassword: string;
@@ -21,11 +28,18 @@ export class UserProfileComponent implements OnInit {
     constructor(
         public userProfileService: UserProfileService,
         public authService: AuthService,
-        public utilService: UtilService
+        public utilService: UtilService,
+        public discordService: DiscordService
     ) { }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         this.user = this.authService.user;
+        await this.authService.reloadUser().toPromise();
+
+        const discordLink = this.authService.user.discordLink;
+        if (discordLink) {
+            this.discordUser = await this.discordService.getUser(discordLink);
+        }
     }
 }
 

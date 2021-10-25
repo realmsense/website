@@ -16,7 +16,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     private handleHttpError(error: HttpErrorResponse) {
         const errorModal = ErrorModalComponent.instance;
-        errorModal.show(`${error.status} ${error.statusText}`, error.message);
+        errorModal.show(`${error.status} ${error.statusText}`, error.message + "\n\n" + error.error.message);
         return throwError(error);
     }
 }

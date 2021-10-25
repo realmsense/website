@@ -19,6 +19,7 @@ import { PlayersComponent } from "./pages/dashboard/tracker/players/players.comp
 import { DashboardHomeComponent } from "./pages/dashboard/welcome/dashboard-home.component";
 import { UserProfileComponent } from "./pages/dashboard/user-profile/user-profile.component";
 import { CardsComponent } from "./components/card/card.component";
+import { LinkDiscordComponent } from "./pages/dashboard/user-profile/link-discord/link-discord.component";
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { CardsComponent } from "./components/card/card.component";
         RealmsComponent,
         PlayersComponent,
         CopyClipboardDirective,
-        CardsComponent
+        CardsComponent,
+        LinkDiscordComponent
     ],
     imports: [
         BrowserModule,

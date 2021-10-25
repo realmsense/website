@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { DateTime } from "luxon";
 
 @Injectable({
@@ -6,7 +7,15 @@ import { DateTime } from "luxon";
 })
 export class UtilService {
 
-    constructor() { }
+    constructor(
+        private router: Router
+    ) { }
+
+    public redirectURL(url: string): void {
+        console.log(url);
+        if (url == "") return;
+        window.location.href = url;
+    }
 
     public formatTime(ms: number, relative: boolean, format = DateTime.TIME_SIMPLE): string {
         if (relative) {

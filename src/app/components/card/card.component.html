@@ -1,4 +1,4 @@
-<div class="stat-card {{this.link == '' ? '' : 'link'}}">
+<div class="stat-card {{this.link == '' ? '' : 'link'}}" (click)="utilService.redirectURL(this.link)">
     <div class="icon {{this.color}}">
         <i class="{{this.icon}}"></i>
     </div>

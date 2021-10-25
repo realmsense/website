@@ -1,7 +1,7 @@
 import { KeyValue } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { SortOrder } from "../../../../models/sort-order";
-import { UtilService } from "../../../../util.service";
+import { UtilService } from "../../../../services/util.service";
 import { RealmOrder } from "./models/realms-order";
 import { RealmsService } from "./realms.service";
 import { Servers } from "@realmsense/types";

@@ -45,25 +45,30 @@
                         <div class="form-group row">
                             <label for="old-password" class="col-sm-2 col-form-label">Old Password</label>
                             <div class="col-sm-10">
-                                <input [(ngModel)]="oldPassword" name="oldPassword" type="password" class="form-control" id="old-password" placeholder="">
+                                <input [(ngModel)]="oldPassword" name="oldPassword" type="password" class="form-control"
+                                    id="old-password" placeholder="">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="new-password" class="col-sm-2 col-form-label">New Password</label>
                             <div class="col-sm-10">
-                                <input [(ngModel)]="newPassword" name="newPassword" type="password" class="form-control" id="new-password" placeholder="">
+                                <input [(ngModel)]="newPassword" name="newPassword" type="password" class="form-control"
+                                    id="new-password" placeholder="">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="repeat-password" class="col-sm-2 col-form-label">Repeat Password</label>
                             <div class="col-sm-10">
-                                <input [(ngModel)]="repeatPassword" name="repeatPassword" type="password" class="form-control" id="repeat-password" placeholder="">
+                                <input [(ngModel)]="repeatPassword" name="repeatPassword" type="password"
+                                    class="form-control" id="repeat-password" placeholder="">
                             </div>
                         </div>
                     </div>
 
                     <div class="card-footer">
-                        <button (click)="authService.changePassword(this.oldPassword, this.newPassword, this.repeatPassword)" type="submit" class="btn btn-info">Change Password</button>
+                        <button
+                            (click)="authService.changePassword(this.oldPassword, this.newPassword, this.repeatPassword)"
+                            type="submit" class="btn btn-info">Change Password</button>
                     </div>
                 </form>
             </div>
@@ -71,16 +76,27 @@
 
         <div id="cards">
 
-            <app-card name="UID"
-                color="bg-info" link="" sub="" icon="fab fa-accessible-icon"
-                value="# 2">
+            <app-card name="UID" color="bg-info" link="" sub="" icon="fab fa-accessible-icon"
+                value="# {{this.user.id}}">
             </app-card>
 
-            <app-card name="Subscription"
-                color="bg-info" link="/dashboard/subscription" sub="No active subscription!" icon="fab fa-accessible-icon"
-                value="">
+            <app-card name="Subscription" color="bg-info" link="/dashboard/subscription" sub="No active subscription!"
+                icon="fab fa-accessible-icon" value="">
             </app-card>
 
+            <!-- If user has a discord account already linked -->
+            <app-card *ngIf="this.user.discordLink" name="Discord" color="bg-info" link=""
+                sub="Logged in as {{this.discordUser.username}}#{{this.discordUser.discriminator}}"
+                icon="fab fa-discord" value="">
+            </app-card>
+
+            <!-- If user has not linked a disocrd account -->
+            <app-card *ngIf="!this.user.discordLink" name="Discord" color="bg-info"
+                link="{{this.API_URL}}/user/link-discord" sub="Link your discord account to use the tracker discord bot"
+                icon="fab fa-discord" value="">
+            </app-card>
+
+            <!-- <img src="{{this.discordService.getUserAvatar(this.discordUser)}}"> -->
         </div>
 
     </div>

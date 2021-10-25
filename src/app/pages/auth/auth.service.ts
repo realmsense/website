@@ -32,14 +32,19 @@ export class AuthService {
         return req;
     }
 
+    public reloadUser(): Observable<IUser> {
+        const user = this.httpClient.get<IUser>(ENVIRONMENT.API_URL + "/user/profile");
+        user.subscribe((user) => localStorage.setItem(USER_KEY, JSON.stringify(user)));
+        return user;
+    }
+
     private handleLogin(accessToken: AccessToken): void {
         // Set session
         localStorage.setItem(ACCESS_TOKEN_KEY, accessToken.token);
         localStorage.setItem(EXPIRATION_KEY, accessToken.expiration.toString());
 
         // Set user profile
-        this.httpClient.get<IUser>(ENVIRONMENT.API_URL + "/user/profile")
-            .subscribe((user) => localStorage.setItem(USER_KEY, JSON.stringify(user)));
+        this.reloadUser();
     }
 
     public logout(): void {
