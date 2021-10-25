@@ -1,2 +1,3 @@
-<h2>{{this.content}}</h2>
-<a routerLink="/dashboard/profile">Click here to return to your Profile</a>
+
+<h2>{{this.content ? this.content : "Please wait..."}}</h2>
+<a *ngIf="this.content" routerLink="/dashboard/profile">Click here to return to your Profile</a>

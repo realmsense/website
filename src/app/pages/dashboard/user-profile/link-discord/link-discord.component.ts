@@ -11,7 +11,7 @@ import { AuthService } from "../../../auth/auth.service";
 })
 export class LinkDiscordComponent implements OnInit {
 
-    public content = "Please wait...";
+    public content = "";
 
     constructor(
         private authService: AuthService,
@@ -26,7 +26,8 @@ export class LinkDiscordComponent implements OnInit {
         const code = this.route.snapshot.queryParams["code"];
 
         const request = this.httpClient.post(ENV.URL.API + "/user/link-discord", { code }).toPromise();
-        request.then(() => {
+        request.then(async () => {
+            await this.authService.reloadUser().toPromise();
             this.content = "Successfully linked your Discord account!";
         });
 
