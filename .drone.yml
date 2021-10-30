@@ -9,7 +9,7 @@ steps:
       - git submodule update --init --recursive
 
   - name: build
-    image: node
+    image: node:lts
     commands:
       - npm clean-install
       - npm run lint
