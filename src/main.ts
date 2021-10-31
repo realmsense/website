@@ -1,6 +1,6 @@
 import { enableProdMode } from "@angular/core";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-import { ENV } from "../shared/src";
+import { ENV } from "../shared/src/constants/environment.webpack";
 import { AppModule } from "./app/app.module";
 
 if (ENV.Production) {

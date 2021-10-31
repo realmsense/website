@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { APIUser } from "discord-api-types/v9";
-import { ENV, IUser } from "../../../../../shared/src";
+import { IUser } from "../../../../../shared/src";
+import { ENV } from "../../../../../shared/src/constants/environment.webpack";
 import { DiscordService } from "../../../services/discord.service";
 import { UtilService } from "../../../services/util.service";
 import { AuthService } from "../../auth/auth.service";

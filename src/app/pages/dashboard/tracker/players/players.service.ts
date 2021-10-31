@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { ENV, IPlayer } from "../../../../../../shared/src";
+import { IPlayer } from "../../../../../../shared/src";
+import { ENV } from "../../../../../../shared/src/constants/environment.webpack";
 
 @Injectable({
     providedIn: "root"

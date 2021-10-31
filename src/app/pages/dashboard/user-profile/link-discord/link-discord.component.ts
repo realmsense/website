@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { ENV } from "../../../../../../shared/src";
+import { ENV } from "../../../../../../shared/src/constants/environment.webpack";
 import { AuthService } from "../../../auth/auth.service";
 
 @Component({

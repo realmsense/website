@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ENV } from "../../../../shared/src";
+import { ENV } from "../../../../shared/src/constants/environment.webpack";
 import { ACCESS_TOKEN_KEY } from "./auth.service";
 
 @Injectable()
