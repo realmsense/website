@@ -1,13 +1,17 @@
-FROM node:latest
+# Stage 1: Build website
+
+FROM node:lts as build
+ENV NODE_ENV="production webpack"
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
-
-RUN npm install -g @angular/cli
-RUN npm install
-
 COPY . .
 
-EXPOSE 4200
-CMD [ "npm", "run", "serve"]
+RUN npm install
+RUN npm run build
+
+
+# Stage 2: Serve with nginx
+FROM nginx:latest
+COPY --from=build /usr/src/app/dist/realmsense-website /usr/share/nginx/html
+EXPOSE 80

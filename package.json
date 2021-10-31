@@ -8,7 +8,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "eslint src --ext ts"
+    "lint": "eslint src --ext ts",
+    "preinstall": "cd shared && npm install"
   },
   "private": true,
   "dependencies": {
