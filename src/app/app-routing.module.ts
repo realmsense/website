@@ -10,10 +10,12 @@ import { LinkDiscordComponent } from "./pages/dashboard/user-profile/link-discor
 import { UserProfileComponent } from "./pages/dashboard/user-profile/user-profile.component";
 import { DashboardHomeComponent } from "./pages/dashboard/welcome/dashboard-home.component";
 import { HomeComponent } from "./pages/home/home.component";
+import { TOSComponent } from "./pages/tos/tos.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
     { path: "home", component: HomeComponent },
+    { path: "tos", component: TOSComponent },
     { path: "login", component: LoginComponent },
     {
         path: "dashboard", component: DashboardComponent,

@@ -20,11 +20,13 @@ import { UserProfileComponent } from "./pages/dashboard/user-profile/user-profil
 import { DashboardHomeComponent } from "./pages/dashboard/welcome/dashboard-home.component";
 import { ErrorModalComponent } from "./pages/error-modal/error-modal.component";
 import { HomeComponent } from "./pages/home/home.component";
+import { TOSComponent } from "./pages/tos/tos.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
+        TOSComponent,
         DashboardComponent,
         DashboardHomeComponent,
         UserProfileComponent,
