@@ -21,6 +21,7 @@ import { UserProfileComponent } from "./pages/dashboard/user-profile/user-profil
 import { DashboardHomeComponent } from "./pages/dashboard/welcome/dashboard-home.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { TOSComponent } from "./pages/tos/tos.component";
+import { RegisterComponent } from "./pages/auth/register/register.component";
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import { TOSComponent } from "./pages/tos/tos.component";
         UserProfileComponent,
         BuildsComponent,
         LoginComponent,
+        RegisterComponent,
         UsersComponent,
         AlertModalComponent,
         RealmsComponent,

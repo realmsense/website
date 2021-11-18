@@ -34,6 +34,12 @@ export class AuthService {
         return req;
     }
 
+    public register(username: string, password: string): Observable<void> {
+        const req = this.httpClient.post<void>(ENV.URL.API + "/auth/register", { username, password });
+        // req.subscribe(this.handleLogin.bind(this));
+        return req;
+    }
+
     public reloadUser(): Observable<IUser> {
         const user = this.httpClient.get<IUser>(ENV.URL.API + "/user/profile");
         user.subscribe((user) => localStorage.setItem(USER_KEY, JSON.stringify(user)));

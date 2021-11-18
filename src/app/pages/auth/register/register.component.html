@@ -1,0 +1,14 @@
+<div id="login" class="text-center">
+    <form class="form-login">
+        <img routerLink="/" id="logo-img" class="mb-4" src="../../../assets/brand/realmsense1024.png" alt="realmsense">
+
+        <input [(ngModel)]="username" name="username" type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+        <input [(ngModel)]="email" name="email" type="text" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+        <input [(ngModel)]="password" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input [(ngModel)]="repeatPassword" name="repeatPassword" type="password" id="inputRepeatPassword" class="form-control" placeholder="Repeat Password" required>
+
+        <button (click)="register()" class="btn btn-lg btn-primary btn-block" type="button">Create Account</button>
+
+        <p class="mt-3">Already have an account? <a routerLink="/login">Log In</a></p>
+    </form>
+</div>
