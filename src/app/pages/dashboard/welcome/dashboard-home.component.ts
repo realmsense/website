@@ -22,7 +22,7 @@ export class DashboardHomeComponent implements OnInit {
 const stats: Card[] = [
     {
         name: "Players",
-        color: "bg-info",
+        color: "info",
         link: "/dashboard/tracker/players",
         sub: "in the last 24 hours",
         icon: "fab fa-accessible-icon",
@@ -30,7 +30,7 @@ const stats: Card[] = [
     },
     {
         name: "Realms",
-        color: "bg-danger",
+        color: "danger",
         link: "/dashboard/tracker/realms",
         sub: "currently tracked",
         icon: "fas fa-poo",
@@ -38,7 +38,7 @@ const stats: Card[] = [
     },
     {
         name: "Discord Raids",
-        color: "bg-success",
+        color: "success",
         link: "/dashboard/tracker/raids",
         sub: "in the last 24 hours",
         icon: "fab fa-discord",
@@ -46,7 +46,7 @@ const stats: Card[] = [
     },
     {
         name: "Key Pops",
-        color: "bg-warning",
+        color: "warning",
         link: "/dashboard/tracker/keypops",
         sub: "in the last 24 hours",
         icon: "fas fa-key",

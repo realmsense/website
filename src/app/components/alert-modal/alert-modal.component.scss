@@ -1,0 +1,64 @@
+.modal-container {
+    
+    width: auto;
+    background: rgb(231, 81, 90) none repeat scroll 0% 0%;
+    opacity: 1;
+
+    transition: all 0.5s ease;
+    transition-property: all;
+    transition-property: top, right, bottom, left, opacity;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    min-height: 14px;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    line-height: 22px;
+    padding: 18px 24px;
+    bottom: -100px;
+    top: -100px;
+    z-index: 9999;
+
+    // bottom-right positon
+    top: auto !important;
+    bottom: 0;
+    right: 0;
+
+    @media (min-width: 640px) {
+        min-width: 288px;
+        max-width: 568px;
+        display: inline-flex;
+        border-radius: 2px;
+        margin: 24px;
+    }
+
+    @media (max-width: 640px) {
+        left: 0;
+        right: 0;
+        width: 100%;
+    }
+
+    p {
+        margin: 0px;
+        padding: 0px;
+        color: rgb(255, 255, 255);
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1em;
+    }
+
+    button {
+        background: transparent;
+        display: inline-block;
+        border: none;
+        font-size: inherit;
+        text-transform: uppercase;
+        color: rgb(255, 255, 255);
+        margin: 0 0 0 24px;
+        padding: 0;
+        min-width: min-content;
+        cursor: pointer;
+    }
+}

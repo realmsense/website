@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { IUser, Permission } from "../../../../shared/src";
 import { ENV } from "../../../../shared/src/constants/environment.webpack";
-import { ErrorModalComponent } from "../error-modal/error-modal.component";
+import { AlertModalComponent } from "../../components/alert-modal/alert-modal.component";
 import { AccessToken } from "./models/accesstoken.model";
 
 export const ACCESS_TOKEN_KEY = "access_token";
@@ -14,6 +14,8 @@ export const USER_KEY = "user";
     providedIn: "root"
 })
 export class AuthService {
+
+    private alertModal = AlertModalComponent.instance;
 
     constructor(private httpClient: HttpClient) { }
 
@@ -56,8 +58,7 @@ export class AuthService {
 
     public changePassword(oldPassword: string, newPassword: string, repeatPassword: string): void {
         if (newPassword != repeatPassword) {
-            const errorModal = ErrorModalComponent.instance;
-            errorModal.show("Change Password", "New password does not match");
+            this.alertModal.show("danger", "New password does not match");
             return;
         }
 
@@ -65,13 +66,11 @@ export class AuthService {
             .subscribe((success) => {
 
                 if (!success) {
-                    const errorModal = ErrorModalComponent.instance;
-                    errorModal.show("Change Password", "Incorrect old password");
+                    this.alertModal.show("danger", "Incorrect old password");
                     return;
                 }
 
-                const errorModal = ErrorModalComponent.instance;
-                errorModal.show("Change Password", "Password successfully changed, please login again...");
+                this.alertModal.show("success", "Password successfully changed, please login again.");
                 setTimeout(this.logout.bind(this), 1500);
             });
     }

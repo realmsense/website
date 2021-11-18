@@ -6,6 +6,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { CardsComponent } from "./components/card/card.component";
+import { AlertModalComponent } from "./components/alert-modal/alert-modal.component";
 import { CopyClipboardDirective } from "./directives/copy-clipboard-directive";
 import { AuthInterceptor } from "./pages/auth/auth.interceptor";
 import { HttpErrorInterceptor } from "./pages/auth/http-error.interceptor";
@@ -18,7 +19,6 @@ import { RealmsComponent } from "./pages/dashboard/tracker/realms/realms.compone
 import { LinkDiscordComponent } from "./pages/dashboard/user-profile/link-discord/link-discord.component";
 import { UserProfileComponent } from "./pages/dashboard/user-profile/user-profile.component";
 import { DashboardHomeComponent } from "./pages/dashboard/welcome/dashboard-home.component";
-import { ErrorModalComponent } from "./pages/error-modal/error-modal.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { TOSComponent } from "./pages/tos/tos.component";
 
@@ -33,7 +33,7 @@ import { TOSComponent } from "./pages/tos/tos.component";
         BuildsComponent,
         LoginComponent,
         UsersComponent,
-        ErrorModalComponent,
+        AlertModalComponent,
         RealmsComponent,
         PlayersComponent,
         CopyClipboardDirective,

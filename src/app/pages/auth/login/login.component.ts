@@ -3,13 +3,9 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { AlertModalComponent } from "../../../components/alert-modal/alert-modal.component";
 import { AuthService } from "../auth.service";
 import { AccessToken } from "../models";
-
-interface Alert {
-    type: string;
-    message: string;
-}
 
 @Component({
     selector: "app-login",
@@ -18,10 +14,9 @@ interface Alert {
 })
 export class LoginComponent implements OnInit {
 
-    public alert: Alert;
-
     public username: string;
     public password: string;
+    private alertModal = AlertModalComponent.instance;
 
     constructor(
         private httpClient: HttpClient,
@@ -30,35 +25,23 @@ export class LoginComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
-        this.alert = { type: "secondary d-none", message: "" }; // hidden alert
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     private handleLoginError(error: HttpErrorResponse) {
-        this.alert = {
-            type: "danger",
-            message: `${error.status} ${error.statusText}`
-        };
-
+        this.alertModal.show("danger", "Invalid username or password");
         return throwError("Failed to login");
     }
 
     private handleLoginSuccess(accessToken: AccessToken): void {
 
-        this.alert = {
-            type: "success",
-            message: "Successfully logged in! Redirecting..."
-        };
-
+        this.alertModal.show("success", "Successfully logged in!");
         this.router.navigateByUrl("/dashboard");
     }
 
     public login(): void {
         if (!this.username || !this.password) {
-            this.alert = {
-                type: "warning",
-                message: "Please enter a username and password"
-            };
+            this.alertModal.show("warning", "Please enter a username and password");
             return;
         }
 

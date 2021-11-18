@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { ErrorModalComponent } from "../error-modal/error-modal.component";
+import { AlertModalComponent } from "../../components/alert-modal/alert-modal.component";
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -15,8 +15,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     private handleHttpError(error: HttpErrorResponse) {
-        const errorModal = ErrorModalComponent.instance;
-        errorModal.show(`${error.status} ${error.statusText}`, error.message + "\n\n" + error.error.message);
+        const alertModal = AlertModalComponent.instance;
+        alertModal.show("danger", error.error.message);
+        console.log(error);
         return throwError(error);
     }
 }
