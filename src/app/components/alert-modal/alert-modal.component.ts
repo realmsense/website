@@ -24,7 +24,7 @@ export class AlertModalComponent implements OnInit {
     public ngOnInit(): void {
     }
 
-    public show(color: this["color"], content: string, autoHide = 2000): void {
+    public show(color: this["color"], content: string, autoHide = 5000): void {
         this.color = color;
         this.content = content;
         this.element.nativeElement.style.opacity = 1;
