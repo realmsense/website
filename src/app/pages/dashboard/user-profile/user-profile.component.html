@@ -76,22 +76,22 @@
 
         <div id="cards">
 
-            <app-card name="UID" color="bg-info" link="" sub="" icon="fab fa-accessible-icon"
+            <app-card name="UID" color="info" link="" sub="" icon="fab fa-accessible-icon"
                 value="# {{this.user.id}}">
             </app-card>
 
-            <app-card name="Subscription" color="bg-info" link="/dashboard/subscription" sub="No active subscription!"
+            <app-card name="Subscription" color="info" link="/dashboard/subscription" sub="No active subscription!"
                 icon="fab fa-accessible-icon" value="">
             </app-card>
 
             <!-- If user has a discord account already linked -->
-            <app-card *ngIf="this.user.discordLink" name="Discord" color="bg-info" link=""
+            <app-card *ngIf="this.user.discordLink" name="Discord" color="info" link=""
                 sub="Logged in as {{this.discordUser.username}}#{{this.discordUser.discriminator}}"
                 icon="fab fa-discord" value="">
             </app-card>
 
             <!-- If user has not linked a disocrd account -->
-            <app-card *ngIf="!this.user.discordLink" name="Discord" color="bg-info"
+            <app-card *ngIf="!this.user.discordLink" name="Discord" color="info"
                 link="{{this.API_URL}}/user/link-discord" sub="Link your discord account to use the tracker discord bot"
                 icon="fab fa-discord" value="">
             </app-card>
