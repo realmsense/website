@@ -14,7 +14,6 @@ import { AuthService } from "../auth.service";
 export class RegisterComponent implements OnInit {
 
     public username: string;
-    public email: string;
     public password: string;
     public repeatPassword: string;
     private alertModal = AlertModalComponent.instance;
@@ -40,8 +39,8 @@ export class RegisterComponent implements OnInit {
     }
 
     public register(): void {
-        if (!this.username || !this.password || !this.email) {
-            this.alertModal.show("warning", "Please enter a username, password and email.");
+        if (!this.username || !this.password) {
+            this.alertModal.show("warning", "Please enter a username and password.");
             return;
         }
 
