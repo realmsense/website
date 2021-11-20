@@ -14,7 +14,6 @@ export class DashboardComponent implements OnInit {
     public title = "Admin Panel";
     
     // Sidebar
-    public menuList = menuList;
     public sideBarOpen = true;
     
     // Footer
@@ -49,37 +48,3 @@ export class DashboardComponent implements OnInit {
         }
     }
 }
-
-interface MenuItem {
-    header: string | null,
-    children: {
-        name: string;
-        link: string;
-        icon: string;
-    }[];
-}
-
-const menuList: MenuItem[] = [
-    {
-        header: null,
-        children: [
-            { name: "Home", link: "/dashboard", icon: "fas fa-home" },
-            { name: "Download", link: "/download", icon: "fas fa-download" },
-            { name: "Subscription", link: "/subscription", icon: "fas fa-dollar-sign" },
-        ],
-    },
-    {
-        header: "Tracker",
-        children: [
-            { name: "Realms", link: "/dashboard/tracker/realms", icon: "fas fa-poo" },
-            { name: "Players", link: "/dashboard/tracker/players", icon: "fab fa-accessible-icon" },
-        ],
-    },
-    {
-        header: "Admin",
-        children: [
-            { name: "Builds", link: "/dashboard/admin/builds", icon: "fas fa-file-code" },
-            { name: "Users", link: "/dashboard/admin/users", icon: "fas fa-users-cog" },
-        ],
-    }
-];

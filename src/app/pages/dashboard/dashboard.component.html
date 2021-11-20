@@ -44,15 +44,38 @@
         <!-- Sidebar Links -->
         <nav class="mt-2" style="overflow-y: hidden">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <ng-container *ngFor="let menuItem of menuList" #menuItemTemplate>
-                    <li *ngIf="menuItem.header" class="nav-header">{{menuItem.header}}</li>
-                    <li *ngFor="let child of menuItem.children" class="nav-item">
-                        <a routerLink="{{child.link}}" class="nav-link">
-                            <i *ngIf="child.icon" class="nav-icon {{child.icon}}"></i>
-                            <p>{{child.name}}</p>
+
+                <!-- Main -->
+                <!-- <ng-template [ngTemplateOutlet]='menuHeader' [ngTemplateOutletContext]="{ name: 'Main' }"></ng-template> -->
+                <ng-template [ngTemplateOutlet]="menuItem" [ngTemplateOutletContext]="{ link: { name: 'Home', path: '/dashboard', icon: 'fas fa-home' } }"></ng-template>
+                <ng-template [ngTemplateOutlet]='menuItem' [ngTemplateOutletContext]="{ link: { name: 'Download', path: '/download', icon: 'fas fa-download' } }"></ng-template>
+                <ng-template [ngTemplateOutlet]='menuItem' [ngTemplateOutletContext]="{ link: { name: 'Subscription', path: '/subscription', icon: 'fas fa-dollar-sign' } }"></ng-template>
+                
+                <!-- Tracker -->
+                <ng-template [ngTemplateOutlet]='menuHeader' [ngTemplateOutletContext]="{ name: 'Tracker' }"></ng-template>
+                <ng-template [ngTemplateOutlet]='menuItem' [ngTemplateOutletContext]="{ link: { name: 'Realms', path: '/dashboard/tracker/realms', icon: 'fas fa-poo' } }"></ng-template>
+                <ng-template [ngTemplateOutlet]='menuItem' [ngTemplateOutletContext]="{ link: { name: 'Players', path: '/dashboard/tracker/players', icon: 'fab fa-accessible-icon' } }"></ng-template>
+                
+                <!-- Admin -->
+                <ng-container *ngIf="this.authService.isAdmin()">
+                    <ng-template [ngTemplateOutlet]='menuHeader' [ngTemplateOutletContext]="{ name: 'Admin' }"></ng-template>
+                    <ng-template [ngTemplateOutlet]='menuItem' [ngTemplateOutletContext]="{ link: { name: 'Builds', path: '/dashboard/admin/builds', icon: 'fas fa-file-code' } }"></ng-template>
+                    <ng-template [ngTemplateOutlet]='menuItem' [ngTemplateOutletContext]="{ link: { name: 'Users', path: '/dashboard/admin/users', icon: 'fas fa-users-cog' } }"></ng-template>
+                </ng-container>
+
+                <ng-template #menuHeader let-name="name">
+                    <li class="nav-header">{{name}}</li>
+                </ng-template>
+
+                <ng-template #menuItem let-link="link">
+                    <li class="nav-item">
+                        <a routerLink="{{link.path}}" class="nav-link">
+                            <i *ngIf="link.icon" class="nav-icon {{link.icon}}"></i>
+                            <p>{{link.name}}</p>
                         </a>
                     </li>
-                </ng-container>
+                </ng-template>
+
             </ul>
         </nav>
     </div>
