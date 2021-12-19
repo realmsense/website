@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ENV } from "../../../../shared/src/constants/environment.webpack";
-import { UtilService } from "../../services/util.service";
+import { ENV2 } from "@realmsense/shared";
 
 @Component({
     selector: "app-home",
@@ -9,7 +8,7 @@ import { UtilService } from "../../services/util.service";
 })
 export class HomeComponent implements OnInit {
 
-    public ENV = ENV;
+    public ENV = ENV2;
 
     constructor() { }
 

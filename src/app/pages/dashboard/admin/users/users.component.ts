@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { IUser, Permission } from "../../../../../../shared/src";
+import { IUser, Permission } from "@realmsense/shared";
 import { AuthService } from "../../../auth/auth.service";
 import { UsersService } from "./users.service";
 

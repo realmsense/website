@@ -28,8 +28,10 @@
         "preserveSymlinks": true,
     },
     "include": [
-        "src",
-        "./shared/src"
+        "src"
+    ],
+    "references": [
+        { "path": "./shared" }
     ],
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,

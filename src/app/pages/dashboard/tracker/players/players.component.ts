@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Classes, IPlayer } from "@realmsense/shared";
 import { fromEvent } from "rxjs";
 import { debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
-import { Classes, IPlayer } from "../../../../../../shared/src";
 import { UtilService } from "../../../../services/util.service";
 import { PlayersService } from "./players.service";
 

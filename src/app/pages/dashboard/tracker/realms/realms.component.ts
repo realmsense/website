@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Servers } from "../../../../../../shared/src";
+import { Servers } from "@realmsense/shared";
 import { SortOrder } from "../../../../models/sort-order";
 import { UtilService } from "../../../../services/util.service";
 import { RealmOrder } from "./models/realms-order";
@@ -15,7 +15,7 @@ export class RealmsComponent implements OnInit {
     // Imports
     public RealmOrder = RealmOrder;
     public SortOrder = SortOrder;
-    public Servers = Servers
+    public Servers = Servers;
     
     constructor(
         public realmsService: RealmsService,
