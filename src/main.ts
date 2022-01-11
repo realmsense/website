@@ -1,9 +1,9 @@
 import { enableProdMode } from "@angular/core";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 import { AppModule } from "./app/app.module";
-import { ENV2} from "@realmsense/shared"; 
+import { ENV } from "@realmsense/shared"; 
 
-if (ENV2.Production) {
+if (ENV.Production) {
     enableProdMode();
 }
 

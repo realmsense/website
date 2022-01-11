@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ENV2 } from "@realmsense/shared";
+import { ENV } from "@realmsense/shared";
 import { Observable } from "rxjs";
 import { UploadedFileResponse } from "../../../../models/uploadedFileResponse.model";
 import { Build } from "./models/build.model";
@@ -14,15 +14,15 @@ export class BuildsService {
     constructor(private httpClient: HttpClient) { }
 
     public getBuilds(): Observable<Build[]> {
-        return this.httpClient.get<Build[]>(ENV2.URL.API + "/builds/all");
+        return this.httpClient.get<Build[]>(ENV.URL.API + "/builds/all");
     }
 
     public getBuildTypes(): Observable<BuildType[]> {
-        return this.httpClient.get<BuildType[]>(ENV2.URL.API + "/builds/types");
+        return this.httpClient.get<BuildType[]>(ENV.URL.API + "/builds/types");
     }
 
     public getBuildType(name: string): Observable<BuildType> {
-        return this.httpClient.get<BuildType>(ENV2.URL.API + "/builds/type", {params: {"name": name} });
+        return this.httpClient.get<BuildType>(ENV.URL.API + "/builds/type", {params: {"name": name} });
     }
 
     public uploadBuild(file: File): Observable<UploadedFileResponse> {
@@ -33,11 +33,11 @@ export class BuildsService {
         headers.append("Content-Type", "multipart/form-data");
         headers.append("Accept", file.type);
 
-        return this.httpClient.put<UploadedFileResponse>(ENV2.URL.API + "/builds/upload", formData);
+        return this.httpClient.put<UploadedFileResponse>(ENV.URL.API + "/builds/upload", formData);
     }
 
     public createBuild(build: Omit<Build, "id" | "enabled">): Observable<Build> {
-        return this.httpClient.post<Build>(ENV2.URL.API + "/builds/create", build);
+        return this.httpClient.post<Build>(ENV.URL.API + "/builds/create", build);
     }
 
     public announceBuild(build: Build, changelog: string): Observable<unknown> {
@@ -51,6 +51,6 @@ export class BuildsService {
     }
 
     public createBuildType(buildType: BuildType): Observable<BuildType> {
-        return this.httpClient.post<BuildType>(ENV2.URL.API + "/builds/createType", buildType);
+        return this.httpClient.post<BuildType>(ENV.URL.API + "/builds/createType", buildType);
     }
 }

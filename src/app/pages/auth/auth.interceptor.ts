@@ -1,6 +1,6 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ENV2 } from "@realmsense/shared";
+import { ENV } from "@realmsense/shared";
 import { Observable } from "rxjs";
 import { ACCESS_TOKEN_KEY } from "./auth.service";
 
@@ -11,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-        if (!request.url.startsWith(ENV2.URL.API)) {
+        if (!request.url.startsWith(ENV.URL.API)) {
             return next.handle(request);
         }
 

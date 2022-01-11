@@ -1,11 +1,14 @@
+const path = require("path");
 const Dotenv = require("dotenv-webpack");
-const webpack = require("webpack");
 
 module.exports = {
     plugins: [
-        new Dotenv(),
-        new webpack.IgnorePlugin({
-            resourceRegExp: /dotenv/
-        })
-    ]
+        new Dotenv(), // Set dotenv values (in environment.ts) at compile time
+    ],
+    resolve: {
+        alias: {
+            // https://github.com/webpack/webpack/issues/2858#issuecomment-240338772
+            "dotenv/config$": path.resolve(__dirname, "src/noop.js")
+        }
+    }
 };

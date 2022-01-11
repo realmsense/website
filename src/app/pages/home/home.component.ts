@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ENV2 } from "@realmsense/shared";
+import { ENV } from "@realmsense/shared";
 
 @Component({
     selector: "app-home",
@@ -8,7 +8,7 @@ import { ENV2 } from "@realmsense/shared";
 })
 export class HomeComponent implements OnInit {
 
-    public ENV = ENV2;
+    public ENV = ENV;
 
     constructor() { }
 

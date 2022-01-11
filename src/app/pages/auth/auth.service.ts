@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { IUser, ENV2, Permission } from "@realmsense/shared";
+import { IUser, ENV, Permission } from "@realmsense/shared";
 import { Observable } from "rxjs";
 import { AlertModalComponent } from "../../components/alert-modal/alert-modal.component";
 import { AccessToken } from "./models/accesstoken.model";
@@ -28,19 +28,19 @@ export class AuthService {
     }
 
     public login(username: string, password: string): Observable<AccessToken> {
-        const req = this.httpClient.post<AccessToken>(ENV2.URL.API + "/auth/login", { username, password });
+        const req = this.httpClient.post<AccessToken>(ENV.URL.API + "/auth/login", { username, password });
         req.subscribe(this.handleLogin.bind(this));
         return req;
     }
 
     public register(username: string, password: string): Observable<void> {
-        const req = this.httpClient.post<void>(ENV2.URL.API + "/auth/register", { username, password });
+        const req = this.httpClient.post<void>(ENV.URL.API + "/auth/register", { username, password });
         // req.subscribe(this.handleLogin.bind(this));
         return req;
     }
 
     public reloadUser(): Observable<IUser> {
-        const user = this.httpClient.get<IUser>(ENV2.URL.API + "/user/profile");
+        const user = this.httpClient.get<IUser>(ENV.URL.API + "/user/profile");
         user.subscribe((user) => localStorage.setItem(USER_KEY, JSON.stringify(user)));
         return user;
     }
@@ -67,7 +67,7 @@ export class AuthService {
             return;
         }
 
-        this.httpClient.post<boolean>(ENV2.URL.API + "/auth/changePassword", { oldPassword, newPassword })
+        this.httpClient.post<boolean>(ENV.URL.API + "/auth/changePassword", { oldPassword, newPassword })
             .subscribe((success) => {
 
                 if (!success) {

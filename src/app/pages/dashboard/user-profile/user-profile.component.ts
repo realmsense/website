@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ENV2, IUser } from "@realmsense/shared";
+import { ENV, IUser } from "@realmsense/shared";
 import { APIUser } from "discord-api-types/v9";
 import { DiscordService } from "../../../services/discord.service";
 import { UtilService } from "../../../services/util.service";
@@ -15,7 +15,7 @@ export class UserProfileComponent implements OnInit {
 
     // Imports
     public userDetails = userDetails;
-    public API_URL = ENV2.URL.API;
+    public API_URL = ENV.URL.API;
 
     public user: IUser;
     public discordUser: APIUser;

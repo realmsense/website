@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { IUser, ENV2 } from "@realmsense/shared";
+import { IUser, ENV } from "@realmsense/shared";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -11,11 +11,11 @@ export class UsersService {
     constructor(private httpClient: HttpClient) { }
 
     public getUsers(): Observable<IUser[]> {
-        return this.httpClient.get<IUser[]>(ENV2.URL.API + "/user/all");
+        return this.httpClient.get<IUser[]>(ENV.URL.API + "/user/all");
     }
 
     public register(username: string, password: string): Observable<void> {
-        return this.httpClient.post<void>(ENV2.URL.API + "/auth/register", {username, password});
+        return this.httpClient.post<void>(ENV.URL.API + "/auth/register", {username, password});
     }
 
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -23,6 +23,6 @@ export class UsersService {
         const params = new HttpParams()
             .append("id", id);
 
-        return this.httpClient.put<void>(ENV2.URL.API + "/user/update", updatedUser, {params});
+        return this.httpClient.put<void>(ENV.URL.API + "/user/update", updatedUser, {params});
     }
 }
