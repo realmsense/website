@@ -22,6 +22,7 @@ import { DashboardHomeComponent } from "./pages/dashboard/welcome/dashboard-home
 import { HomeComponent } from "./pages/home/home.component";
 import { TOSComponent } from "./pages/tos/tos.component";
 import { RegisterComponent } from "./pages/auth/register/register.component";
+import { LogsComponent } from "./pages/dashboard/admin/logs/logs.component";
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import { RegisterComponent } from "./pages/auth/register/register.component";
         PlayersComponent,
         CopyClipboardDirective,
         CardsComponent,
-        LinkDiscordComponent
+        LinkDiscordComponent,
+        LogsComponent
     ],
     imports: [
         BrowserModule,

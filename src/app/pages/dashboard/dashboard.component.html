@@ -61,6 +61,7 @@
                     <ng-template [ngTemplateOutlet]='menuHeader' [ngTemplateOutletContext]="{ name: 'Admin' }"></ng-template>
                     <ng-template [ngTemplateOutlet]='menuItem' [ngTemplateOutletContext]="{ link: { name: 'Builds', path: '/dashboard/admin/builds', icon: 'fas fa-file-code' } }"></ng-template>
                     <ng-template [ngTemplateOutlet]='menuItem' [ngTemplateOutletContext]="{ link: { name: 'Users', path: '/dashboard/admin/users', icon: 'fas fa-users-cog' } }"></ng-template>
+                    <ng-template [ngTemplateOutlet]='menuItem' [ngTemplateOutletContext]="{ link: { name: 'Logs', path: '/dashboard/admin/logs', icon: 'fas fa-exclamation-triangle' } }"></ng-template>
                 </ng-container>
 
                 <ng-template #menuHeader let-name="name">

@@ -1,0 +1,59 @@
+<div class="content-header border-bottom mb-4">
+    <h1>Logs</h1>
+</div>
+
+<div class="content">
+    <h4>Bot Status</h4>
+    <ng-template [ngTemplateOutlet]='botstatus' [ngTemplateOutletContext]="{action: true, statuses: botStatuses}"></ng-template>
+</div>
+
+<!-- Bot Status History Modal -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">History for "{{viewingHistory[0].guid}}"</h4>
+        <button (click)="modal.dismiss()" type="button" class="close btn-close" data-dismiss="modal" aria-label="Close"></button>
+    </div>
+    
+    <div class="modal-body">
+        <ng-template [ngTemplateOutlet]='botstatus' [ngTemplateOutletContext]="{action: false, statuses: viewingHistory}"></ng-template>
+    </div>
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close()">Close</button>
+    </div>
+</ng-template>
+
+<!-- Bot Status Table -->
+<ng-template #botstatus let-action="action" let-statuses="statuses">
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>GUID</th>
+                    <th>Message</th>
+                    <th *ngIf="action">Action</th>
+                </tr>
+            </thead>
+    
+            <tbody *ngFor="let botStatus of statuses">
+                <tr>
+                    <td>{{botStatus.time}}</td>
+                    <td>
+                        
+                        <div class="card text-white bg-{{this.statusToColor(botStatus.status)}}" style="all: inherit">
+                            {{botStatus.status}}
+                        </div>
+
+                    </td>
+                    <td>{{botStatus.guid}}</td>
+                    <td>{{botStatus.message}}</td>
+                    <td *ngIf="action">
+                        <button (click)="viewStatusHistory(content, botStatus)" type="button" class="btn btn-info">View Logs</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-template>

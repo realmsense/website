@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "./pages/auth/login/login.component";
 import { RegisterComponent } from "./pages/auth/register/register.component";
 import { BuildsComponent } from "./pages/dashboard/admin/builds/builds.component";
+import { LogsComponent } from "./pages/dashboard/admin/logs/logs.component";
 import { UsersComponent } from "./pages/dashboard/admin/users/users.component";
 import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 import { PlayersComponent } from "./pages/dashboard/tracker/players/players.component";
@@ -27,6 +28,7 @@ const routes: Routes = [
             { path: "profile/link-discord", component: LinkDiscordComponent },
             { path: "admin/builds", component: BuildsComponent },
             { path: "admin/users", component: UsersComponent },
+            { path: "admin/logs", component: LogsComponent },
             { path: "tracker/realms", component: RealmsComponent },
             { path: "tracker/players", component: PlayersComponent },
         ]
