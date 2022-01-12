@@ -66,6 +66,14 @@ export class LogsService {
     }
 
     private onEventMessage(message: any): void {
+
+        // TODO: Hide/Clear open modal logs
+        if (message.data == "clear") {
+            this.botStatuses = [];
+            this.viewingHistory = [];
+            return;
+        }
+
         const botStatus = JSON.parse(message.data) as IBotStatus;
 
         let replaced = false;
