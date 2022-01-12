@@ -11,24 +11,19 @@ import { LogsService } from "./logs.service";
 })
 export class LogsComponent implements OnInit {
 
-    public botStatuses: IBotStatus[] = [];
-
-    public viewingHistory: IBotStatus[] = [];
-
     constructor(
-        private logsService: LogsService,
+        public logsService: LogsService,
         private modalService: NgbModal
     ) { }
 
     public ngOnInit(): void {
-        this.logsService.getCurrentBotStatus()
-            .subscribe((botStatuses) => this.botStatuses = botStatuses);
+        this.logsService.getCurrentBotStatus();
+        this.logsService.listenForEvents();
     }
 
     public async viewStatusHistory(content, botStatus: IBotStatus): Promise<void> {
         this.logsService.getBotStatusHistory(botStatus.guid)
             .subscribe((botStatuses) => {
-                this.viewingHistory = botStatuses.reverse();
                 this.modalService.open(content, { ariaLabelledBy: "modal-basic-title" });
             });
     }
